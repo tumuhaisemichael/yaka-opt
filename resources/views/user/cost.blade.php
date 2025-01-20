@@ -2,7 +2,7 @@
     <div class="flex" style="height: 100vh;">
         <!-- Sidebar -->
         <nav class="bg-[#2e7d32] dark:bg-[#1b5e20]" style="width: 250px; padding: 20px;">
-            <h3 class="text-white text-lg font-semibold mb-4 text-center">User Menu</h3>
+            <h3 class="text-white text-lg font-semibold mb-4 text-center">Cost</h3>
             <ul class="list-unstyled">
                 <li>
                     <a href="{{ route('dashboard') }}" class="d-flex align-items-center text-gray-300 hover:text-blue-400 py-2">

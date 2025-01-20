@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
 
     <!--Page Title-->
-    <title>Namari - Free Landing Page Template</title>
+    <title>Yaka-Opt</title>
 
     <!--Meta Keywords and Description-->
     <meta name="keywords" content="">
@@ -59,11 +59,11 @@
                     <div id="logo">
 
                         <!--Logo that is shown on the banner-->
-                        <img src="images/logo.png" id="banner-logo" alt="Landing Page"/>
+                        <!-- <img src="images/logo.png" id="banner-logo" alt="Landing Page"/> -->
                         <!--End of Banner Logo-->
 
                         <!--The Logo that is shown on the sticky Navigation Bar-->
-                        <img src="images/logo-2.png" id="navigation-logo" alt="Landing Page"/>
+                        <!-- <img src="images/logo-2.png" id="navigation-logo" alt="Landing Page"/> -->
                         <!--End of Navigation Logo-->
 
                     </div>
@@ -146,11 +146,6 @@
                             <li>
                                 <a href="#clients">Clients</a>
                             </li>
-                            <li>
-                                <a href="#pricing">Pricing</a>
-                            </li>
-
-
                     </nav>
                     <!--End of Main Navigation-->
 
@@ -161,114 +156,87 @@
             </div>
         </div><!--End of Header-->
 
-        <!--Banner Content-->
-        <div id="banner-content" class="row clearfix">
-
-            <div class="col-38">
-
-                <div class="section-heading">
-                    <h1>A FREE AND SIMPLE LANDING PAGE</h1>
-                    <h2>Namari is a free landing page template you can use for your projects. It is free to use for your
-                        personal and commercial projects, enjoy!</h2>
-                </div>
-
-                <!--Call to Action-->
-                <a href="#" class="button">START CREATING TODAY</a>
-                <!--End Call to Action-->
-
-            </div>
-
-        </div><!--End of Row-->
+<!--Banner Content-->
+<div id="banner-content" class="row clearfix">
+    <div class="col-38">
+        <div class="section-heading">
+            <h1>AI-DRIVEN ENERGY OPTIMIZATION</h1>
+            <h2>Your solution for sustainable, cost-effective, and reliable electricity management in Uganda.</h2>
+        </div>
+        <!--Call to Action-->
+        <a href="#" class="button">LEARN MORE</a>
+        <!--End Call to Action-->
+    </div>
+</div>
+<!--End of Row-->
     </header>
 
     <!--Main Content Area-->
     <main id="content">
 
-        <!--Introduction-->
-        <section id="about" class="introduction scrollto">
-
-            <div class="row clearfix">
-
-                <div class="col-3">
-                    <div class="section-heading">
-                        <h3>SUCCESS</h3>
-                        <h2 class="section-title">How We Help You To Sell Your Product</h2>
-                        <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam!</p>
-                    </div>
-
-                </div>
-
-                <div class="col-2-3">
-
-                    <!--Icon Block-->
-                    <div class="col-2 icon-block icon-top wow fadeInUp" data-wow-delay="0.1s">
-                        <!--Icon-->
-                        <div class="icon">
-                            <i class="fa fa-html5 fa-2x"></i>
-                        </div>
-                        <!--Icon Block Description-->
-                        <div class="icon-block-description">
-                            <h4>HTML5 &amp; CSS3</h4>
-                            <p>Has ne tritani atomorum conclusionemque, in dolorum volumus cotidieque eum. At vis choro
-                                neglegentur iudico</p>
-                        </div>
-                    </div>
-                    <!--End of Icon Block-->
-
-                    <!--Icon Block-->
-                    <div class="col-2 icon-block icon-top wow fadeInUp" data-wow-delay="0.3s">
-                        <!--Icon-->
-                        <div class="icon">
-                            <i class="fa fa-bolt fa-2x"></i>
-                        </div>
-                        <!--Icon Block Description-->
-                        <div class="icon-block-description">
-                            <h4>Easy to Use</h4>
-                            <p>Cu vero ipsum vim, doctus facilisi sea in. Eam ex falli honestatis repudiandae, sit
-                                detracto mediocrem disputationi</p>
-                        </div>
-                    </div>
-                    <!--End of Icon Block-->
-
-                    <!--Icon Block-->
-                    <div class="col-2 icon-block icon-top wow fadeInUp" data-wow-delay="0.5s">
-                        <!--Icon-->
-                        <div class="icon">
-                            <i class="fa fa-tablet fa-2x"></i>
-                        </div>
-                        <!--Icon Block Description-->
-                        <div class="icon-block-description">
-                            <h4>Fully Responsive</h4>
-                            <p>Id porro tritani recusabo usu, eum intellegam consequuntur et. Fugit debet ea sit, an pro
-                                nemore vivendum</p>
-                        </div>
-                    </div>
-                    <!--End of Icon Block-->
-
-                    <!--Icon Block-->
-                    <div class="col-2 icon-block icon-top wow fadeInUp" data-wow-delay="0.5s">
-                        <!--Icon-->
-                        <div class="icon">
-                            <i class="fa fa-rocket fa-2x"></i>
-                        </div>
-                        <!--Icon Block Description-->
-                        <div class="icon-block-description">
-                            <h4>Parallax Effect</h4>
-                            <p>Id porro tritani recusabo usu, eum intellegam consequuntur et. Fugit debet ea sit, an pro
-                                nemore vivendum</p>
-                        </div>
-                    </div>
-                    <!--End of Icon Block-->
-
-                </div>
-
+<!--Introduction-->
+<section id="about" class="introduction scrollto">
+    <div class="row clearfix">
+        <div class="col-3">
+            <div class="section-heading">
+                <h3>ABOUT THE PROJECT</h3>
+                <h2 class="section-title">Revolutionizing Electricity Management</h2>
+                <p class="section-subtitle">The AI-Driven Predictive Power Management System helps households optimize energy usage with AI and IoT solutions.</p>
             </div>
+        </div>
 
+        <div class="col-2-3">
+            <!--Icon Block-->
+            <div class="col-2 icon-block icon-top wow fadeInUp" data-wow-delay="0.1s">
+                <div class="icon">
+                    <i class="fa fa-plug fa-2x"></i>
+                </div>
+                <div class="icon-block-description">
+                    <h4>Smart Monitoring</h4>
+                    <p>Our system uses IoT devices like smart plugs to track and monitor your electricity consumption in real time.</p>
+                </div>
+            </div>
+            <!--End of Icon Block-->
 
-        </section>
-        <!--End of Introduction-->
+            <!--Icon Block-->
+            <div class="col-2 icon-block icon-top wow fadeInUp" data-wow-delay="0.3s">
+                <div class="icon">
+                    <i class="fa fa-line-chart fa-2x"></i>
+                </div>
+                <div class="icon-block-description">
+                    <h4>Predictive Analytics</h4>
+                    <p>Leverage AI-driven forecasts to anticipate usage patterns and make data-informed decisions.</p>
+                </div>
+            </div>
+            <!--End of Icon Block-->
 
+            <!--Icon Block-->
+            <div class="col-2 icon-block icon-top wow fadeInUp" data-wow-delay="0.5s">
+                <div class="icon">
+                    <i class="fa fa-leaf fa-2x"></i>
+                </div>
+                <div class="icon-block-description">
+                    <h4>Energy Sustainability</h4>
+                    <p>Promote sustainability by reducing waste and conserving resources for a better environment.</p>
+                </div>
+            </div>
+            <!--End of Icon Block-->
+
+            <!--Icon Block-->
+            <div class="col-2 icon-block icon-top wow fadeInUp" data-wow-delay="0.7s">
+                <div class="icon">
+                    <i class="fa fa-money fa-2x"></i>
+                </div>
+                <div class="icon-block-description">
+                    <h4>Cost Savings</h4>
+                    <p>Save money with actionable recommendations for optimizing electricity consumption and reducing outages.</p>
+                </div>
+            </div>
+            <!--End of Icon Block-->
+        </div>
+    </div>
+</section>
+<!--End of Introduction-->
 
         <!--Gallery-->
         <aside id="gallery" class="row text-center scrollto clearfix" data-featherlight-gallery
@@ -292,241 +260,125 @@
 
 
         <!--Content Section-->
-        <div id="services" class="scrollto clearfix">
-
-            <div class="row no-padding-bottom clearfix">
-
-
-                <!--Content Left Side-->
-                <div class="col-3">
-                    <!--User Testimonial-->
-                    <blockquote class="testimonial text-right bigtest">
-                        <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore
-                            et dolore magna aliqua</q>
-                        <footer>— John Doe, Happy Customer</footer>
-                    </blockquote>
-                    <!-- End of Testimonial-->
-
-                </div>
-                <!--End Content Left Side-->
-
-                <!--Content of the Right Side-->
-                <div class="col-3">
-                    <div class="section-heading">
-                        <h3>BELIEVING</h3>
-                        <h2 class="section-title">Focusing On What Matters Most</h2>
-                        <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam!</p>
-                    </div>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                        totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-                        dicta sunt explicabo.
-                    </p>
-                    <p>
-                        Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                        consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-                        Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet!
-                    </p>
-                    <!-- Just replace the Video ID "UYJ5IjBRlW8" with the ID of your video on YouTube (Found within the URL) -->
-                    <a href="#" data-videoid="UYJ5IjBRlW8" data-videosite="youtube" class="button video link-lightbox">
-                        WATCH VIDEO <i class="fa fa-play" aria-hidden="true"></i>
-                    </a>
-                </div>
-                <!--End Content Right Side-->
-
-                <div class="col-3">
-                    <img src="images/dancer.jpg" alt="Dancer"/>
-                </div>
-
-            </div>
-
-
+<div id="services" class="scrollto clearfix">
+    <div class="row no-padding-bottom clearfix">
+        <!--Content Left Side-->
+        <div class="col-3">
+            <!--User Testimonial-->
+            <blockquote class="testimonial text-right bigtest">
+                <q>"The AI-powered system transformed how we manage electricity. No more surprise outages, and we've saved so much money!"</q>
+                <footer>— Jane Doe, Ugandan Household</footer>
+            </blockquote>
+            <!-- End of Testimonial-->
         </div>
-        <!--End of Content Section-->
+        <!--End Content Left Side-->
 
-        <!--Testimonials-->
-        <aside id="testimonials" class="scrollto text-center" data-enllax-ratio=".2">
-
-            <div class="row clearfix">
-
-                <div class="section-heading">
-                    <h3>FEEDBACK</h3>
-                    <h2 class="section-title">What our customers are saying</h2>
-                </div>
-
-                <!--User Testimonial-->
-                <blockquote class="col-3 testimonial classic">
-                    <img src="images/user-images/user-1.jpg" alt="User"/>
-                    <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore
-                        et dolore magna aliqua</q>
-                    <footer>John Doe - Happy Customer</footer>
-                </blockquote>
-                <!-- End of Testimonial-->
-
-                <!--User Testimonial-->
-                <blockquote class="col-3 testimonial classic">
-                    <img src="images/user-images/user-2.jpg" alt="User"/>
-                    <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore
-                        et dolore magna aliqua</q>
-                    <footer>Roslyn Doe - Happy Customer</footer>
-                </blockquote>
-                <!-- End of Testimonial-->
-
-                <!--User Testimonial-->
-                <blockquote class="col-3 testimonial classic">
-                    <img src="images/user-images/user-3.jpg" alt="User"/>
-                    <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore
-                        et dolore magna aliqua</q>
-                    <footer>Thomas Doe - Happy Customer</footer>
-                </blockquote>
-                <!-- End of Testimonial-->
-
+        <!--Content Right Side-->
+        <div class="col-3">
+            <div class="section-heading">
+                <h3>OUR MISSION</h3>
+                <h2 class="section-title">Empowering Energy Efficiency</h2>
+                <p class="section-subtitle">We strive to align with Uganda’s development goals by creating solutions that empower households and stakeholders.</p>
             </div>
+            <p>The system integrates seamlessly with Umeme Yaka prepaid meters, offering real-time insights and recommendations to optimize energy use. Join us in conserving resources and achieving economic savings for a sustainable future.</p>
+            <a href="#" class="button video link-lightbox">WATCH HOW IT WORKS <i class="fa fa-play" aria-hidden="true"></i></a>
+        </div>
+        <!--End Content Right Side-->
 
-        </aside>
-        <!--End of Testimonials-->
+        <div class="col-3">
+            <img src="images/smart-electricity.jpg" alt="Smart Electricity Management" />
+        </div>
+    </div>
+</div>
+<!--End of Content Section-->
 
-        <!--Clients-->
-        <section id="clients" class="scrollto clearfix">
-            <div class="row clearfix">
 
-                <div class="col-3">
+<!--Testimonials-->
+<aside id="testimonials" class="scrollto text-center" data-enllax-ratio=".2">
+    <div class="row clearfix">
+        <div class="section-heading">
+            <h3>FEEDBACK</h3>
+            <h2 class="section-title">What our users are saying</h2>
+        </div>
 
-                    <div class="section-heading">
-                        <h3>TRUST</h3>
-                        <h2 class="section-title">Companies who use our services</h2>
-                        <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                            eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam!</p>
-                    </div>
+        <!--User Testimonial-->
+        <blockquote class="col-3 testimonial classic">
+            <img src="images/user-images/user-1.jpg" alt="User"/>
+            <q>"Thanks to the AI-Driven Predictive Power Management System, I've reduced my electricity bills and gained better control over my energy usage."</q>
+            <footer>Mary N., Kampala Resident</footer>
+        </blockquote>
+        <!-- End of Testimonial-->
 
-                </div>
+        <!--User Testimonial-->
+        <blockquote class="col-3 testimonial classic">
+            <img src="images/user-images/user-2.jpg" alt="User"/>
+            <q>"The real-time insights and recommendations have made it so much easier to manage my prepaid electricity. It's a game-changer!"</q>
+            <footer>Samuel T., Ugandan Household</footer>
+        </blockquote>
+        <!-- End of Testimonial-->
 
-                <div class="col-2-3">
+        <!--User Testimonial-->
+        <blockquote class="col-3 testimonial classic">
+            <img src="images/user-images/user-3.jpg" alt="User"/>
+            <q>"I never realized how much energy I was wasting before. This system has helped me become more sustainable and save money."</q>
+            <footer>Agnes K., Small Business Owner</footer>
+        </blockquote>
+        <!-- End of Testimonial-->
+    </div>
+</aside>
+<!--End of Testimonials-->
 
-                    <a href="#" class="col-3">
-                        <img src="images/company-images/company-logo1.png" alt="Company"/>
-                        <div class="client-overlay"><span>Tree</span></div>
-                    </a>
-                    <a href="#" class="col-3">
-                        <img src="images/company-images/company-logo2.png" alt="Company"/>
-                        <div class="client-overlay"><span>Fingerprint</span></div>
-                    </a>
-                    <a href="#" class="col-3">
-                        <img src="images/company-images/company-logo3.png" alt="Company"/>
-                        <div class="client-overlay"><span>The Man</span></div>
-                    </a>
-                    <a href="#" class="col-3">
-                        <img src="images/company-images/company-logo4.png" alt="Company"/>
-                        <div class="client-overlay"><span>Mustache</span></div>
-                    </a>
-                    <a href="#" class="col-3">
-                        <img src="images/company-images/company-logo5.png" alt="Company"/>
-                        <div class="client-overlay"><span>Goat</span></div>
-                    </a>
-                    <a href="#" class="col-3">
-                        <img src="images/company-images/company-logo6.png" alt="Company"/>
-                        <div class="client-overlay"><span>Justice</span></div>
-                    </a>
-                    <a href="#" class="col-3">
-                        <img src="images/company-images/company-logo7.png" alt="Company"/>
-                        <div class="client-overlay"><span>Ball</span></div>
-                    </a>
-                    <a href="#" class="col-3">
-                        <img src="images/company-images/company-logo8.png" alt="Company"/>
-                        <div class="client-overlay"><span>Cold</span></div>
-                    </a>
 
-                    <a href="#" class="col-3">
-                        <img src="images/company-images/company-logo9.png" alt="Company"/>
-                        <div class="client-overlay"><span>Cold</span></div>
-                    </a>
-
-                </div>
-
+       <!--Clients-->
+<section id="clients" class="scrollto clearfix">
+    <div class="row clearfix">
+        <div class="col-3">
+            <div class="section-heading">
+                <h3>TRUST</h3>
+                <h2 class="section-title">Organizations Empowered by Our System</h2>
+                <p class="section-subtitle">Our solution is trusted by various organizations and stakeholders committed to sustainable energy management.</p>
             </div>
-        </section>
-        <!--End of Clients-->
+        </div>
 
-        <!--Pricing Tables-->
-        <section id="pricing" class="secondary-color text-center scrollto clearfix ">
-            <div class="row clearfix">
+        <div class="col-2-3">
+            <a href="#" class="col-3">
+                <img src="images/company-images/company-logo1.png" alt="Company"/>
+                <div class="client-overlay"><span>Green Energy Uganda</span></div>
+            </a>
+            <a href="#" class="col-3">
+                <img src="images/company-images/company-logo2.png" alt="Company"/>
+                <div class="client-overlay"><span>Eco Power Solutions</span></div>
+            </a>
+            <a href="#" class="col-3">
+                <img src="images/company-images/company-logo3.png" alt="Company"/>
+                <div class="client-overlay"><span>Umeme Partners</span></div>
+            </a>
+            <a href="#" class="col-3">
+                <img src="images/company-images/company-logo4.png" alt="Company"/>
+                <div class="client-overlay"><span>Sustainable Tech Group</span></div>
+            </a>
+            <a href="#" class="col-3">
+                <img src="images/company-images/company-logo5.png" alt="Company"/>
+                <div class="client-overlay"><span>Future Energy Initiatives</span></div>
+            </a>
+            <a href="#" class="col-3">
+                <img src="images/company-images/company-logo6.png" alt="Company"/>
+                <div class="client-overlay"><span>Uganda Energy Commission</span></div>
+            </a>
+            <a href="#" class="col-3">
+                <img src="images/company-images/company-logo7.png" alt="Company"/>
+                <div class="client-overlay"><span>Smart Power Advocates</span></div>
+            </a>
+            <a href="#" class="col-3">
+                <img src="images/company-images/company-logo8.png" alt="Company"/>
+                <div class="client-overlay"><span>Clean Energy Uganda</span></div>
+            </a>
+        </div>
+    </div>
+</section>
+<!--End of Clients-->
 
-                <div class="section-heading">
-                    <h3>YOUR CHOICE</h3>
-                    <h2 class="section-title">We have the right package for you</h2>
-                </div>
 
-                <!--Pricing Block-->
-                <div class="pricing-block col-3 wow fadeInUp" data-wow-delay="0.4s">
-                    <div class="pricing-block-content">
-                        <h3>Personal</h3>
-                        <p class="pricing-sub">The standard version</p>
-                        <div class="pricing">
-                            <div class="price"><span>$</span>19</div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                        </div>
-                        <ul>
-                            <li>5 Downloads</li>
-                            <li>2 Extensions</li>
-                            <li>Tutorials</li>
-                            <li>Forum Support</li>
-                            <li>1 year free updates</li>
-                        </ul>
-                        <a href="#" class="button">BUY TODAY</a>
-                    </div>
-                </div>
-                <!--End Pricing Block-->
-
-                <!--Pricing Block-->
-                <div class="pricing-block featured col-3 wow fadeInUp" data-wow-delay="0.6s">
-                    <div class="pricing-block-content">
-                        <h3>Student</h3>
-                        <p class="pricing-sub">Most popular choice</p>
-                        <div class="pricing">
-                            <div class="price"><span>$</span>29</div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                        </div>
-                        <ul>
-                            <li>15 Downloads</li>
-                            <li>5 Extensions</li>
-                            <li>Tutorials with Files</li>
-                            <li>Forum Support</li>
-                            <li>2 years free updates</li>
-                        </ul>
-                        <a href="#" class="button">BUY TODAY</a>
-                    </div>
-                </div>
-                <!--End Pricing Block-->
-
-                <!--Pricing Block-->
-                <div class="pricing-block col-3 wow fadeInUp" data-wow-delay="0.8s">
-                    <div class="pricing-block-content">
-                        <h3>Business</h3>
-                        <p class="pricing-sub">For the whole team</p>
-                        <div class="pricing">
-                            <div class="price"><span>$</span>49</div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                        </div>
-                        <ul>
-                            <li>Unlimited Downloads</li>
-                            <li>Unlimited Extensions</li>
-                            <li>HD Video Tutorials</li>
-                            <li>Chat Support</li>
-                            <li>Lifetime free updates</li>
-                        </ul>
-                        <a href="#" class="button">BUY TODAY</a>
-                    </div>
-                </div>
-                <!--End Pricing Block-->
-
-            </div>
-        </section>
-        <!--End of Pricing Tables-->
 
     </main>
     <!--End Main Content Area-->
@@ -572,6 +424,9 @@
     <!--End of Footer-->
 
 </div>
+
+<script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2025/01/07/06/20250107061331-AMCAOKBZ.js"></script>
 
 <!-- Include JavaScript resources -->
 <script src="js/jquery.1.8.3.min.js"></script>
