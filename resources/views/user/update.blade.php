@@ -42,14 +42,23 @@
                 <h2 class="text-lg font-semibold text-[#00796b]">Step 1: Enter Yaka Units</h2>
                 <input type="number" id="yakaUnits" placeholder="Enter Yaka Units" class="form-control mb-4" />
 
-                <!-- Step 2: Choose Appliances -->
+                <!-- Step 2: Choose Appliances
                 <h2 class="text-lg font-semibold text-[#00796b]">Step 2: Choose Your Appliances</h2>
                 <div class="dropdown mb-4">
                     <select id="applianceDropdown" class="form-control">
                         <option value="">-- Select an Appliance --</option>
                     </select>
                     <button class="btn mt-2 w-100" onclick="addAppliance()">Add Appliance</button>
-                </div>
+                </div> -->
+<!-- Step 2: Choose Appliances -->
+<h2 class="text-lg font-semibold text-[#00796b]">Step 2: Choose Your Appliances</h2>
+<div class="dropdown mb-4">
+    <select id="applianceDropdown" class="form-control" onchange="addAppliance()">
+        <option value="">-- Select an Appliance --</option>
+    </select>
+</div>
+
+
 
                 <!-- Step 3: Add Custom Appliance -->
                 <h2 class="text-lg font-semibold text-[#00796b]">Step 3: Add Custom Appliance</h2>
@@ -75,11 +84,22 @@
                 </div>
 
                 <!-- Adjustments Form -->
-                <div id="adjustmentsForm" class="adjustments-form mt-4" style="display: none;">
+                <!-- <div id="adjustmentsForm" class="adjustments-form mt-4" style="display: none;">
                     <h3 class="font-semibold">Make Your Adjustments</h3>
                     <div id="adjustmentFields"></div>
                     <button class="btn mt-2" onclick="recalculate()">Recalculate</button>
-                </div>
+                </div> -->
+                <div id="adjustmentOptions" class="adjustment-options mt-4" style="display: none;">
+    <h3 class="font-semibold">Would you like to adjust appliance usage to extend your Yaka units?</h3>
+    <!-- Button to show adjustments with link -->
+    <button class="btn mt-2" onclick="showAdjustments(); window.location.href='https://cdn.botpress.cloud/webchat/v2.3/shareable.html?configUrl=https://files.bpcontent.cloud/2025/01/07/06/20250107061331-I57U8DS2.json';">
+    Yes, make adjustments
+</button>
+
+    <!-- Updated refresh button -->
+    <button class="btn btn-secondary w-100 mb-2" onclick="refreshPage()">Refresh</button>
+</div>
+
 
                 <!-- History and Refresh -->
                 <div class="mt-4">
@@ -90,14 +110,7 @@
         </div>
     </div>
 
-    <!-- History Overlay -->
-    <!-- <div id="historyOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); color: white; z-index: 1000; overflow-y: auto;">
-        <div style="max-width: 800px; margin: 50px auto; background: white; color: black; padding: 20px; border-radius: 8px;">
-            <h2 class="text-xl font-bold text-center">Interaction History</h2>
-            <div id="historyList" class="mt-4"></div>
-            <button class="btn mt-4 w-100" onclick="closeHistoryOverlay()">Close</button>
-        </div>
-    </div> -->
+
     <div id="historyOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); color: white; z-index: 1000; overflow-y: auto;">
     <div style="max-width: 800px; margin: 50px auto; background: white; color: black; padding: 20px; border-radius: 8px;">
         <h2 class="text-xl font-bold text-center">Interaction History</h2>
@@ -130,18 +143,38 @@
             applianceDropdown.appendChild(option);
         });
 
+        // function addAppliance() {
+        //     const selectedIndex = applianceDropdown.value;
+        //     if (selectedIndex === "") {
+        //         alert("Please select an appliance to add.");
+        //         return;
+        //     }
+        //     const appliance = appliances[selectedIndex];
+        //     if (!selectedAppliances.includes(appliance)) {
+        //         selectedAppliances.push(appliance);
+        //         displayApplianceList();
+        //     }
+        // }
         function addAppliance() {
-            const selectedIndex = applianceDropdown.value;
-            if (selectedIndex === "") {
-                alert("Please select an appliance to add.");
-                return;
-            }
-            const appliance = appliances[selectedIndex];
-            if (!selectedAppliances.includes(appliance)) {
-                selectedAppliances.push(appliance);
-                displayApplianceList();
-            }
-        }
+    const selectedIndex = applianceDropdown.value;
+    if (selectedIndex === "") return;
+
+    const appliance = appliances[selectedIndex];
+    if (!selectedAppliances.includes(appliance)) {
+        selectedAppliances.push(appliance);
+        displayApplianceList();
+    }
+
+    // Reset the dropdown to the default option
+    applianceDropdown.value = "";
+}
+
+appliances.forEach((appliance, index) => {
+    const option = document.createElement("option");
+    option.value = index;
+    option.textContent = appliance.name;
+    applianceDropdown.appendChild(option);
+});
 
         function addCustomAppliance() {
             const name = document.getElementById("customApplianceName").value.trim();
@@ -165,7 +198,6 @@
                     </div>`;
             });
         }
-
 
         function calculateUsage() {
     const yakaUnits = parseFloat(document.getElementById("yakaUnits").value);
@@ -329,4 +361,6 @@ function showHistoryOverlay() {
             location.reload();
         }
     </script>
+
+
 </x-app-layout>
