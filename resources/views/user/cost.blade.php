@@ -36,14 +36,106 @@
 
         <!-- Main Content -->
         <div class="flex-grow p-4 bg-[#f1f8e9] dark:bg-[#dcedc8]" style="overflow-y: auto;">
-            <div class="container bg-white rounded shadow-lg p-4">
+        <div class="container bg-white rounded shadow-lg p-4">
                 <div class="text-center">
                     <h1 class="text-2xl font-bold text-[#2e7d32]">Cost Dashboard</h1>
                     <p class="text-[#757575]">January, 20th 2025</p>
                 </div>
 
-                <div class="bg-[#2e7d32] text-[#030f04] rounded-lg mt-4 p-4">
-                    <h2 class="text-lg font-semibold text-[#aed581] text-center">COST</h2>
+                <div id="yaka-calculator" class="p-4 rounded-lg bg-gray-100 shadow-lg relative">
+                    <!-- Title -->
+                    <h2 class="text-xl font-bold mb-4">Yaka Units Calculator</h2>
+
+                    <!-- Calculator Layout -->
+                    <div class="flex items-center gap-4">
+                        <!-- Amount Input -->
+                        <div class="flex-1">
+                        <label for="amount" class="block text-gray-700 mb-2">Enter Amount (UGX):</label>
+                        <input
+                            type="number"
+                            id="amount"
+                            class="w-full p-2 border rounded"
+                            placeholder="Enter amount of money"
+                        />
+                        </div>
+
+                        <!-- Yaka Units Display -->
+                        <div class="flex-1 text-center">
+                        <label class="block text-gray-700 mb-2">Yaka Units:</label>
+                        <p id="result" class="p-2 bg-white border rounded text-green-600 font-bold">
+                            Yaka Units
+                        </p>
+                        </div>
+                    </div>
+
+                    <!-- Refresh Icon in top-right corner -->
+                    <button
+                        onclick="resetCalculator()"
+                        class="absolute top-2 right-2 text-gray-600 hover:text-blue-500">
+                        🔄
+                    </button>
+
+                    <!-- Calculate Button -->
+                    <div class="mt-4">
+                        <button
+                        onclick="calculateYakaUnits()"
+                        class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+                        >
+                        Calculate Units
+                        </button>
+                    </div>
+                    </div>
+
+                    <script>
+                    function calculateYakaUnits() {
+                        const amount = parseFloat(document.getElementById("amount").value);
+                        const lifelineRate = 606.2; // Subsidized rate for first 15 units
+                        const tierOneRate = 803.0; // Rate for 16th to 80th unit
+                        const tierTwoRate = 412.0; // Rate for units above 80
+
+                        let remainingAmount = amount;
+                        let units = 0;
+
+                        if (remainingAmount <= 0 || isNaN(amount)) {
+                        document.getElementById("result").innerText = "Invalid amount.";
+                        return;
+                        }
+
+                        // Lifeline tier (first 15 units)
+                        const lifelineCost = 15 * lifelineRate;
+                        if (remainingAmount <= lifelineCost) {
+                        units = remainingAmount / lifelineRate;
+                        document.getElementById("result").innerText = `${units.toFixed(2)} units`;
+                        return;
+                        }
+                        units += 15;
+                        remainingAmount -= lifelineCost;
+
+                        // Tier 1 (16th to 80th unit)
+                        const tierOneUnits = 80 - 15; // 65 units in tier 1
+                        const tierOneCost = tierOneUnits * tierOneRate;
+                        if (remainingAmount <= tierOneCost) {
+                        units += remainingAmount / tierOneRate;
+                        document.getElementById("result").innerText = `${units.toFixed(2)} units`;
+                        return;
+                        }
+                        units += tierOneUnits;
+                        remainingAmount -= tierOneCost;
+
+                        // Tier 2 (above 80 units)
+                        units += remainingAmount / tierTwoRate;
+                        document.getElementById("result").innerText = `${units.toFixed(2)} units`;
+                    }
+
+                    function resetCalculator() {
+                        document.getElementById("amount").value = "";
+                        document.getElementById("result").innerText = "Enter an amount";
+                    }
+                    </script>
+
+
+                    <h2 class="text-lg font-semibold text-[#aed581] text-center">Graph</h2>
+
 
                     <div class="flex justify-center mt-2">
                         <button id="todayBtn" class="px-4 py-2 bg-[#388e3c] rounded text-sm text-white hover:bg-[#66bb6a] mx-2" onclick="updateGraph('today')">Today</button>
@@ -51,24 +143,27 @@
                         <button id="yearBtn" class="px-4 py-2 bg-[#2e7d32] text-[#a5d6a7] rounded text-sm hover:bg-[#66bb6a] mx-2" onclick="updateGraph('year')">Year</button>
                     </div>
 
-                    <div class="flex justify-between border-b border-[#81c784] pb-4">
-                        <div class="text-sm">
-                            <p class="text-[#a5d6a7]">JAN 19TH 2025</p>
-                            <p class="text-2xl font-bold text-[#e8f5e9]">$7.1</p>
-                        </div>
-                        <div class="text-sm">
-                            <p class="text-[#a5d6a7]">SO FAR TODAY</p>
-                            <p class="text-2xl font-bold text-[#e8f5e9]">$0.8</p>
-                        </div>
-                        <div class="text-sm">
-                            <p class="text-[#a5d6a7]">PREDICTED TODAY</p>
-                            <p class="text-2xl font-bold text-[#e8f5e9]">$6.2</p>
-                        </div>
-                        <div class="text-sm">
-                            <p class="text-[#a5d6a7]">ESTIMATED SAVINGS</p>
-                            <p class="text-2xl font-bold text-[#e8f5e9]">$0.9</p>
-                        </div>
-                    </div>
+                    <div class="flex justify-between border-b border-[#81c784] pb-4 md:flex hidden">
+
+
+    <div class="text-sm">
+        <p class="text-[#a5d6a7]">JAN 19TH 2025</p>
+        <p class="text-2xl font-bold text-[#e8f5e9]">$7.1</p>
+    </div>
+    <div class="text-sm">
+        <p class="text-[#a5d6a7]">SO FAR TODAY</p>
+        <p class="text-2xl font-bold text-[#e8f5e9]">$0.8</p>
+    </div>
+    <div class="text-sm">
+        <p class="text-[#a5d6a7]">PREDICTED TODAY</p>
+        <p class="text-2xl font-bold text-[#e8f5e9]">$6.2</p>
+    </div>
+    <div class="text-sm">
+        <p class="text-[#a5d6a7]">ESTIMATED SAVINGS</p>
+        <p class="text-2xl font-bold text-[#e8f5e9]">$0.9</p>
+    </div>
+</div>
+
 
                     <div class="mt-6">
                         <div id="graphContainer">
@@ -77,6 +172,8 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
