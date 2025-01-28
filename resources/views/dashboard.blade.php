@@ -1,8 +1,9 @@
 <x-app-layout>
-    <div class="py-12 flex" style="height: calc(100vh - 4rem);">
+    <!-- Desktop Layout -->
+    <div class="hidden md:flex" style="height: calc(100vh - 4rem);">
         <!-- Sidebar -->
         <nav class="bg-[#004d40] dark:bg-[#00332c]" style="width: 250px; padding: 20px;">
-            <h3 class="text-white text-lg font-semibold mb-4 text-center">Smart Energy</h3>
+            <h3 class="text-white text-lg font-semibold mb-4 text-center">Op Energy</h3>
             <ul class="list-unstyled">
                 <li>
                     <a href="{{ route('dashboard') }}" class="d-flex align-items-center text-white hover:text-[#80cbc4] py-2">
@@ -11,10 +12,10 @@
                     </a>
                 </li>
                 <li>
-                            <a href="{{route('user.update') }}" class="d-flex align-items-center text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 py-2">
-                                <i class="fas fa-user-edit me-2"></i>
-                                {{('Yaka-Opt') }}
-                            </a>
+                    <a href="{{ route('user.update') }}" class="d-flex align-items-center text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 py-2">
+                        <i class="fas fa-user-edit me-2"></i>
+                        {{ __('Yaka-Opt') }}
+                    </a>
                 </li>
                 <li>
                     <a href="{{ route('user.cost') }}" class="d-flex align-items-center text-white hover:text-[#80cbc4] py-2">
@@ -28,9 +29,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="d-flex align-items-center text-white hover:text-[#80cbc4] py-2">
-                        <i class="fas fa-chart-bar me-2"></i>
-                        Usage by Room
+                    <a href="{{ route('user.connect') }}" class="d-flex align-items-center text-white hover:text-[#80cbc4] py-2">
+                        <i class="fas fa-link me-2"></i>
+                        Connect Devices
                     </a>
                 </li>
             </ul>
@@ -39,36 +40,118 @@
         <!-- Main Content -->
         <div class="flex-1 p-4 bg-[#e8f5e9] dark:bg-[#c8e6c9]">
             <div class="text-center mb-4">
-                <h2 class="text-2xl font-bold text-[#004d40] border-2 border-[#00796b] inline-block p-2 bg-[#a5d6a7]">ENERGY DASHBOARD</h2>
+                <h2 class="text-2xl font-bold text-[#004d40] border-2 border-[#00796b] inline-block p-2 bg-[#a5d6a7]">Op ENERGY DASHBOARD</h2>
             </div>
             <div
-                class="grid grid-cols-2 md:grid-cols-3 gap-2 p-4"
+                class="grid grid-cols-2 lg:grid-cols-3 gap-6 p-4"
                 style="max-height: calc(100vh - 10rem); overflow-y: auto;"
             >
                 <!-- Cost Predicted -->
-                <div class="bg-[#00796b] p-2 rounded shadow">
+                <div class="bg-[#00796b] p-4 rounded shadow">
                     <h3 class="text-white text-sm font-bold mb-2">Cost Predicted</h3>
-                    <canvas id="costPredictedChart" width="60" height="60"></canvas>
+                    <canvas id="costPredictedChart" style="width: 100%; height: 250px;"></canvas>
                 </div>
                 <!-- Change in Cost -->
-                <div class="bg-[#00796b] p-2 rounded shadow">
+                <div class="bg-[#00796b] p-4 rounded shadow">
                     <h3 class="text-white text-sm font-bold mb-2">Change in Cost</h3>
-                    <canvas id="changeInCostChart" width="60" height="60"></canvas>
+                    <canvas id="changeInCostChart" style="width: 100%; height: 250px;"></canvas>
                 </div>
                 <!-- Usage Estimate -->
-                <div class="bg-[#00796b] p-2 rounded shadow">
+                <div class="bg-[#00796b] p-4 rounded shadow">
                     <h3 class="text-white text-sm font-bold mb-2">Usage Estimate</h3>
-                    <canvas id="usageEstimateChart" width="60" height="60"></canvas>
+                    <canvas id="usageEstimateChart" style="width: 100%; height: 250px;"></canvas>
                 </div>
                 <!-- Active Appliances -->
-                <div class="bg-[#00796b] p-2 rounded shadow">
+                <div class="bg-[#00796b] p-4 rounded shadow">
                     <h3 class="text-white text-sm font-bold mb-2">Active Appliances</h3>
-                    <canvas id="activeAppliancesChart" width="60" height="60"></canvas>
+                    <canvas id="activeAppliancesChart" style="width: 100%; height: 250px;"></canvas>
                 </div>
                 <!-- Energy Intensity -->
-                <div class="bg-[#00796b] p-2 rounded shadow">
+                <div class="bg-[#00796b] p-4 rounded shadow">
                     <h3 class="text-white text-sm font-bold mb-2">Energy Intensity</h3>
-                    <canvas id="energyIntensityChart" width="60" height="60"></canvas>
+                    <canvas id="energyIntensityChart" style="width: 100%; height: 250px;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Layout -->
+    <div class="md:hidden">
+        <!-- Mobile Header -->
+        <div class="bg-[#004d40] p-4">
+            <button id="menuToggle" class="text-white focus:outline-none">
+                <i class="fas fa-bars"></i> Menu
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden bg-[#004d40] p-4">
+            <ul class="list-unstyled">
+                <li>
+                    <a href="{{ route('dashboard') }}" class="d-flex align-items-center text-white hover:text-[#80cbc4] py-2">
+                        <i class="fas fa-home me-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('user.update') }}" class="d-flex align-items-center text-gray-700 hover:text-blue-600 py-2">
+                        <i class="fas fa-user-edit me-2"></i>
+                        {{ __('Yaka-Opt') }}
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('user.cost') }}" class="d-flex align-items-center text-white hover:text-[#80cbc4] py-2">
+                        <i class="fas fa-home me-2"></i>Cost
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('user.appliances') }}" class="d-flex align-items-center text-white hover:text-[#80cbc4] py-2">
+                        <i class="fas fa-plug me-2"></i>
+                        Appliances
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('user.connect') }}" class="d-flex align-items-center text-white hover:text-[#80cbc4] py-2">
+                        <i class="fas fa-link me-2"></i>
+                        Connect Devices
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="p-4 bg-[#e8f5e9] dark:bg-[#c8e6c9]" style="overflow-y: auto;">
+            <div class="text-center mb-4">
+                <h2 class="text-2xl font-bold text-[#004d40] border-2 border-[#00796b] inline-block p-2 bg-[#a5d6a7]">ENERGY DASHBOARD</h2>
+            </div>
+            <div
+                class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4"
+                style="max-height: calc(100vh - 10rem); overflow-y: auto;"
+            >
+                <!-- Cost Predicted -->
+                <div class="bg-[#00796b] p-4 rounded shadow">
+                    <h3 class="text-white text-sm font-bold mb-2">Cost Predicted</h3>
+                    <canvas id="costPredictedChartMobile" style="width: 100%; height: 200px;"></canvas>
+                </div>
+                <!-- Change in Cost -->
+                <div class="bg-[#00796b] p-4 rounded shadow">
+                    <h3 class="text-white text-sm font-bold mb-2">Change in Cost</h3>
+                    <canvas id="changeInCostChartMobile" style="width: 100%; height: 200px;"></canvas>
+                </div>
+                <!-- Usage Estimate -->
+                <div class="bg-[#00796b] p-4 rounded shadow">
+                    <h3 class="text-white text-sm font-bold mb-2">Usage Estimate</h3>
+                    <canvas id="usageEstimateChartMobile" style="width: 100%; height: 200px;"></canvas>
+                </div>
+                <!-- Active Appliances -->
+                <div class="bg-[#00796b] p-4 rounded shadow">
+                    <h3 class="text-white text-sm font-bold mb-2">Active Appliances</h3>
+                    <canvas id="activeAppliancesChartMobile" style="width: 100%; height: 200px;"></canvas>
+                </div>
+                <!-- Energy Intensity -->
+                <div class="bg-[#00796b] p-4 rounded shadow">
+                    <h3 class="text-white text-sm font-bold mb-2">Energy Intensity</h3>
+                    <canvas id="energyIntensityChartMobile" style="width: 100%; height: 200px;"></canvas>
                 </div>
             </div>
         </div>
@@ -77,90 +160,42 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Cost Predicted - Pie Chart
-        const costPredictedCtx = document.getElementById('costPredictedChart').getContext('2d');
-        new Chart(costPredictedCtx, {
-            type: 'pie',
-            data: {
-                labels: ['Lighting', 'Heating', 'Appliances'],
-                datasets: [{
-                    data: [30, 45, 25],
-                    backgroundColor: ['#43a047', '#1b5e20', '#80cbc4']
-                }]
-            },
-            options: {
-                aspectRatio: 2
-            }
-        });
+        // Initialize Charts for Desktop and Mobile
+        function initializeCharts(chartId, type, labels, data, backgroundColors, borderColor) {
+            const ctx = document.getElementById(chartId).getContext('2d');
+            new Chart(ctx, {
+                type: type,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: backgroundColors,
+                        borderColor: borderColor,
+                        fill: true,
+                    }],
+                },
+                options: { responsive: true, aspectRatio: 1.5 },
+            });
+        }
 
-        // Change in Cost - Bar Chart
-        const changeInCostCtx = document.getElementById('changeInCostChart').getContext('2d');
-        new Chart(changeInCostCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr'],
-                datasets: [{
-                    label: 'Cost ($)',
-                    data: [200, 180, 220, 240],
-                    backgroundColor: '#004d40'
-                }]
-            },
-            options: {
-                aspectRatio: 2
-            }
-        });
+        const chartData = {
+            labels: ['Lighting', 'Heating', 'Appliances'],
+            data: [30, 45, 25],
+            colors: ['#43a047', '#1b5e20', '#80cbc4']
+        };
 
-        // Usage Estimate - Line Chart
-        const usageEstimateCtx = document.getElementById('usageEstimateChart').getContext('2d');
-        new Chart(usageEstimateCtx, {
-            type: 'line',
-            data: {
-                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                datasets: [{
-                    label: 'Usage (kWh)',
-                    data: [120, 150, 170, 140],
-                    borderColor: '#1b5e20',
-                    fill: false
-                }]
-            },
-            options: {
-                aspectRatio: 2
-            }
-        });
+        // Desktop Charts
+        initializeCharts('costPredictedChart', 'pie', chartData.labels, chartData.data, chartData.colors);
+        initializeCharts('changeInCostChart', 'bar', ['Jan', 'Feb', 'Mar', 'Apr'], [200, 180, 220, 240], ['#004d40']);
+        initializeCharts('usageEstimateChart', 'line', ['Week 1', 'Week 2', 'Week 3'], [120, 150, 170], ['#1b5e20']);
+        initializeCharts('activeAppliancesChart', 'bar', ['Fridge', 'AC'], [6, 3], ['#43a047']);
+        initializeCharts('energyIntensityChart', 'radar', ['Daytime', 'Night'], [70, 30], ['rgba(67, 160, 71, 0.2)']);
 
-        // Active Appliances - Bar Graph
-        const activeAppliancesCtx = document.getElementById('activeAppliancesChart').getContext('2d');
-        new Chart(activeAppliancesCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Fridge', 'Washing Machine', 'AC', 'Heater'],
-                datasets: [{
-                    label: 'Usage (Hours)',
-                    data: [6, 4, 3, 2],
-                    backgroundColor: ['#43a047', '#1b5e20', '#80cbc4', '#4db6ac']
-                }]
-            },
-            options: {
-                aspectRatio: 2
-            }
-        });
-
-        // Energy Intensity - Radar Chart
-        const energyIntensityCtx = document.getElementById('energyIntensityChart').getContext('2d');
-        new Chart(energyIntensityCtx, {
-            type: 'radar',
-            data: {
-                labels: ['Daytime', 'Evening', 'Night'],
-                datasets: [{
-                    label: 'Intensity (%)',
-                    data: [70, 50, 30],
-                    backgroundColor: 'rgba(67, 160, 71, 0.2)',
-                    borderColor: 'rgba(67, 160, 71, 1)'
-                }]
-            },
-            options: {
-                aspectRatio: 2
-            }
-        });
+        // Mobile Charts
+        initializeCharts('costPredictedChartMobile', 'pie', chartData.labels, chartData.data, chartData.colors);
+        initializeCharts('changeInCostChartMobile', 'bar', ['Jan', 'Feb', 'Mar', 'Apr'], [200, 180, 220, 240], ['#004d40']);
+        initializeCharts('usageEstimateChartMobile', 'line', ['Week 1', 'Week 2', 'Week 3'], [120, 150, 170], ['#1b5e20']);
+        initializeCharts('activeAppliancesChartMobile', 'bar', ['Fridge', 'AC'], [6, 3], ['#43a047']);
+        initializeCharts('energyIntensityChartMobile', 'radar', ['Daytime', 'Night'], [70, 30], ['rgba(67, 160, 71, 0.2)']);
     </script>
 </x-app-layout>

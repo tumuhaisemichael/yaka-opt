@@ -327,8 +327,6 @@
     </div>
 </aside>
 <!--End of Testimonials-->
-
-
        <!--Clients-->
 <section id="clients" class="scrollto clearfix">
     <div class="row clearfix">
@@ -377,13 +375,8 @@
     </div>
 </section>
 <!--End of Clients-->
-
-
-
     </main>
     <!--End Main Content Area-->
-
-
     <!--Footer-->
     <footer id="landing-footer" class="clearfix">
         <div class="row clearfix">
@@ -422,7 +415,6 @@
         </div>
     </footer>
     <!--End of Footer-->
-
 </div>
 
 <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>

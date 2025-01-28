@@ -69,19 +69,17 @@ class UserController extends Controller
 
     public function index()
     {
-        // $employee = auth()->user()->employee;  // Assuming the user has an associated employee
-        // return view('dashboard', compact('employee'));
 
-        // Return the view for the cost page
         return view('user.cost');
     }
     public function appliances()
     {
-        // $employee = auth()->user()->employee;  // Assuming the user has an associated employee
-        // return view('dashboard', compact('employee'));
-
-        // Return the view for the cost page
         return view('user.appliances');
+    }
+
+    public function connect()
+    {
+        return view('user.connect');
     }
 
 
