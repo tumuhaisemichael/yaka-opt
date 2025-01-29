@@ -197,5 +197,15 @@
         initializeCharts('usageEstimateChartMobile', 'line', ['Week 1', 'Week 2', 'Week 3'], [120, 150, 170], ['#1b5e20']);
         initializeCharts('activeAppliancesChartMobile', 'bar', ['Fridge', 'AC'], [6, 3], ['#43a047']);
         initializeCharts('energyIntensityChartMobile', 'radar', ['Daytime', 'Night'], [70, 30], ['rgba(67, 160, 71, 0.2)']);
+
+        document.addEventListener("DOMContentLoaded", function () {
+        const menuToggle = document.getElementById("menuToggle");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        menuToggle.addEventListener("click", function () {
+            // Toggle the "hidden" class to show/hide the menu
+            mobileMenu.classList.toggle("hidden");
+        });
+    });
     </script>
 </x-app-layout>

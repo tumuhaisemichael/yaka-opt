@@ -276,5 +276,89 @@
         displaySelectedAppliances();
         displayAvailableAppliancesMobile();
         displaySelectedAppliancesMobile();
+
+// Add custom appliance
+function addCustomAppliance() {
+            const name = document.getElementById("customApplianceName").value.trim();
+            const power = parseFloat(document.getElementById("customAppliancePower").value);
+            if (!name || isNaN(power) || power <= 0) {
+                alert("Please enter a valid appliance name and power usage.");
+                return;
+            }
+
+            const customAppliance = { name, power };
+            selectedAppliances.push(customAppliance);
+            displaySelectedAppliances();
+            alert(`Custom appliance "${name}" added to the selected list!`);
+
+            toggleCustomApplianceForm(); // Collapse the form back to button
+        }
+
+        // Toggle custom appliance form visibility
+        function toggleCustomApplianceForm() {
+            const form = document.getElementById("customApplianceForm");
+            const button = document.getElementById("customApplianceButton");
+            if (form.classList.contains("hidden")) {
+                form.classList.remove("hidden");
+                button.classList.add("hidden");
+            } else {
+                form.classList.add("hidden");
+                button.classList.remove("hidden");
+            }
+        }
+
+        // Save preferences
+        function savePreferences() {
+            if (selectedAppliances.length === 0) {
+                alert("Please select at least one appliance.");
+                return;
+            }
+
+            savedLists.push([...selectedAppliances]);
+            localStorage.setItem("applianceLists", JSON.stringify(savedLists));
+            alert("Preferences saved as a new list!");
+            displaySavedLists();
+        }
+
+        // Delete saved list
+        function deleteSavedList(index) {
+            savedLists.splice(index, 1);
+            localStorage.setItem("applianceLists", JSON.stringify(savedLists));
+            displaySavedLists(); // Update the display
+        }
+
+        // Display saved lists in 3 columns with delete icon
+        function displaySavedLists() {
+            if (savedLists.length === 0) {
+                savedListsElement.innerHTML = "<p>No lists saved yet.</p>";
+            } else {
+                savedListsElement.innerHTML = `
+                    <div class="flex flex-wrap gap-4">
+                        ${savedLists.map((list, i) => `
+                            <div class="mb-3 p-3 border rounded flex justify-between w-1/3 relative">
+                                <div>
+                                    <h4>List ${i + 1}</h4>
+                                    <ul>
+                                        ${list.map(a => `<li>${a.name} (${a.power}W)</li>`).join("")}
+                                    </ul>
+                                </div>
+                                <button class="btn text-red-500 absolute top-0 right-0 text-3xl" style="background: none; border: none;" onclick="deleteSavedList(${i})">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        `).join("")}
+                    </div>
+                `;
+            }
+        }
+
+        // View saved lists
+        function viewSavedLists() {
+            const isHidden = savedListsElement.style.display === "none" || savedListsElement.style.display === "";
+            savedListsElement.style.display = isHidden ? "block" : "none";
+        }
+
+        // Initial render
+        displaySavedLists();
     </script>
 </x-app-layout>
