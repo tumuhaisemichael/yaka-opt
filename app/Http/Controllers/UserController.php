@@ -82,6 +82,11 @@ class UserController extends Controller
         return view('user.connect');
     }
 
+    public function yaka()
+    {
+        return view('user.yaka');
+    }
+
 
 
 }

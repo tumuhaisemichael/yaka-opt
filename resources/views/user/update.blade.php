@@ -36,6 +36,12 @@
                         {{ __('Connected Devices') }}
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('user.yaka') }}" class="d-flex align-items-center text-gray-300 hover:text-blue-400 py-2">
+                        <i class="fas fa-user-edit me-2"></i>
+                        {{ __('Yaka') }}
+                    </a>
+                </li>
             </ul>
         </nav>
 
@@ -60,6 +66,14 @@
                     </select>
                 </div>
 
+                <!-- Add this below the "Choose Your Appliances" section -->
+                <h2 class="text-lg font-semibold text-[#00796b]">Load Saved Appliance List</h2>
+                <div class="dropdown mb-4">
+                    <select id="savedListsDropdown" class="form-control" onchange="loadSavedList()">
+                        <option value="">-- Select a Saved List --</option>
+                    </select>
+                </div>
+
                 <!-- Step 3 -->
                 <h2 class="text-lg font-semibold text-[#00796b]">Add Custom Appliance</h2>
                 <div class="custom-appliance mb-4">
@@ -75,7 +89,50 @@
 
                 <!-- Results -->
                 <div id="result" class="result mt-4" style="display: none;"></div>
+<!-- overlay -->
+                <div id="resultOverlay" class="overlay" style="display: none;">
+                <div class="overlay-content">
+                    <div id="resultOverlayContent"></div>
+                </div>
+            </div>
+<style>.timer-display {
+    margin-left: 10px;
+    font-weight: bold;
+}
 
+.overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 90%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    padding: 20px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.overlay-content {
+    background-color: #2c2c2c;
+    padding: 20px;
+    border-radius: 8px;
+    overflow-y: auto;
+}</style>
+
+<!-- <div class="appliance-row flex items-center justify-between mb-2">
+    <span>${appliance.name} (${appliance.power}W):</span>
+    <input type="number" id="hours-${index}" placeholder="Hours/day" class="form-control w-1/4" />
+    <button class="btn btn-sm btn-outline-primary" onclick="startTimer(${index})">Start Timer</button>
+    <button class="btn btn-sm btn-outline-danger" onclick="stopTimer(${index})">Stop Timer</button>
+    <button class="btn btn-sm btn-outline-success" onclick="scheduleTimer(${index})">Schedule</button>
+</div> -->
                 <!-- Adjustment Options -->
                 <div id="adjustmentOptions" class="adjustment-options mt-4" style="display: none;">
                     <h3 class="font-semibold">Would you like to adjust appliance usage to extend your Yaka units?</h3>
@@ -168,6 +225,9 @@
 
     <!-- Scripts -->
     <script>
+
+
+
         const appliances = [
             { name: "Fridge", power: 150 },
             { name: "TV", power: 100 },
@@ -234,7 +294,340 @@ appliances.forEach((appliance, index) => {
             });
         }
 
-        function calculateUsage() {
+
+        // Add this to the existing script
+        function populateSavedListsDropdown() {
+            const savedLists = JSON.parse(localStorage.getItem("applianceLists")) || [];
+            const dropdown = document.getElementById("savedListsDropdown");
+            dropdown.innerHTML = "<option value=''>-- Select a Saved List --</option>";
+            savedLists.forEach((list, index) => {
+                const option = document.createElement("option");
+                option.value = index;
+                option.textContent = `List ${index + 1}`;
+                dropdown.appendChild(option);
+            });
+        }
+
+        // Call this function when the page loads
+        populateSavedListsDropdown();
+
+
+        // Add this to the existing script
+        function loadSavedList() {
+            const dropdown = document.getElementById("savedListsDropdown");
+            const selectedIndex = dropdown.value;
+            if (selectedIndex === "") return;
+
+            const savedLists = JSON.parse(localStorage.getItem("applianceLists")) || [];
+            const selectedList = savedLists[selectedIndex];
+
+            // Clear the current selected appliances
+            selectedAppliances.length = 0;
+
+            // Add the appliances from the saved list
+            selectedList.forEach(appliance => {
+                selectedAppliances.push(appliance);
+            });
+
+            // Display the selected appliances
+            displayApplianceList();
+        }
+
+        // function displayApplianceList() {
+        //     const applianceList = document.getElementById("applianceList");
+        //     applianceList.innerHTML = "";
+        //     selectedAppliances.forEach((appliance, index) => {
+        //         applianceList.innerHTML += `
+        //             <div class="appliance-row">
+        //                 <span>${appliance.name} (${appliance.power}W):</span>
+        //                 <input type="number" id="hours-${index}" placeholder="Hours/day" />
+        //             </div>`;
+        //     });
+        // }
+
+// Update the appliance list display to include stop and schedule buttons
+// function displayApplianceList() {
+//     const applianceList = document.getElementById("applianceList");
+//     applianceList.innerHTML = "";
+//     selectedAppliances.forEach((appliance, index) => {
+//         applianceList.innerHTML += `
+//             <div class="appliance-row flex items-center justify-between mb-2">
+//                 <span>${appliance.name} (${appliance.power}W):</span>
+//                 <input type="number" id="hours-${index}" placeholder="Hours/day" class="form-control w-1/4" />
+//                 <button class="btn btn-sm btn-outline-primary" onclick="startTimer(${index})">Start Timer</button>
+//                 <button class="btn btn-sm btn-outline-danger" onclick="stopTimer(${index})">Stop Timer</button>
+//                 <button class="btn btn-sm btn-outline-success" onclick="scheduleTimer(${index})">Schedule</button>
+//             </div>`;
+//     });
+// }
+
+function displayApplianceList() {
+    const applianceList = document.getElementById("applianceList");
+    applianceList.innerHTML = "";
+    selectedAppliances.forEach((appliance, index) => {
+        applianceList.innerHTML += `
+            <div class="appliance-row flex items-center justify-between bg-gray-100 p-3 rounded-lg shadow-md mb-3">
+                <span class="text-lg font-semibold">${appliance.name} (${appliance.power}W):</span>
+                <input type="number" id="hours-${index}" placeholder="Hours/day" class="form-control w-1/5 p-2 border border-gray-300 rounded-md" />
+                <div class="flex gap-2">
+                    <button class="btn btn-sm bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600" onclick="startTimer(${index})">Start Timer</button>
+                    <button class="btn btn-sm bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600" onclick="stopTimer(${index})">Stop Timer</button>
+                    <button class="btn btn-sm bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600" onclick="scheduleTimer(${index})">Schedule</button>
+                </div>
+            </div>`;
+    });
+}
+// timer
+// Timer functionality with stop and scheduled start
+// let timerIntervals = {}; // Store intervals for each appliance timer
+
+// function startTimer(index) {
+//     const hoursInput = document.getElementById(`hours-${index}`);
+//     const hours = parseFloat(hoursInput.value);
+//     if (isNaN(hours) || hours <= 0) {
+//         alert("Please enter a valid number of hours.");
+//         return;
+//     }
+
+//     const seconds = hours * 3600;
+//     let remainingTime = seconds;
+
+//     const timerDisplay = document.createElement("div");
+//     timerDisplay.id = `timer-${index}`;
+//     timerDisplay.className = "timer-display";
+//     hoursInput.parentNode.appendChild(timerDisplay);
+
+//     // Stop any existing timer for this appliance
+//     if (timerIntervals[index]) {
+//         clearInterval(timerIntervals[index]);
+//     }
+
+//     timerIntervals[index] = setInterval(() => {
+//         remainingTime--;
+//         const hoursLeft = Math.floor(remainingTime / 3600);
+//         const minutesLeft = Math.floor((remainingTime % 3600) / 60);
+//         const secondsLeft = remainingTime % 60;
+
+//         timerDisplay.textContent = `${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`;
+
+//         if (remainingTime <= 0) {
+//             clearInterval(timerIntervals[index]);
+//             timerDisplay.textContent = "Time's up!";
+//         }
+//     }, 1000);
+// }
+
+// function stopTimer(index) {
+//     if (timerIntervals[index]) {
+//         clearInterval(timerIntervals[index]);
+//         const timerDisplay = document.getElementById(`timer-${index}`);
+//         if (timerDisplay) {
+//             timerDisplay.textContent = "Timer stopped.";
+//         }
+//     }
+// }
+
+// function scheduleTimer(index) {
+//     const scheduleTime = prompt("Enter the time to start the timer (e.g., 14:30 for 2:30 PM):");
+//     if (!scheduleTime) return;
+
+//     const now = new Date();
+//     const [hours, minutes] = scheduleTime.split(":").map(Number);
+//     const scheduledTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+
+//     if (scheduledTime <= now) {
+//         alert("Please enter a future time.");
+//         return;
+//     }
+
+//     const delay = scheduledTime - now;
+//     setTimeout(() => {
+//         startTimer(index);
+//     }, delay);
+
+//     alert(`Timer scheduled to start at ${scheduleTime}.`);
+// }
+
+let timerIntervals = {}; // Store intervals for each appliance timer
+
+function startTimer(index) {
+    const hoursInput = document.getElementById(`hours-${index}`);
+    const hours = parseFloat(hoursInput.value);
+    if (isNaN(hours) || hours <= 0) {
+        alert("Please enter a valid number of hours.");
+        return;
+    }
+
+    const seconds = hours * 3600;
+    let remainingTime = seconds;
+
+    let timerDisplay = document.getElementById(`timer-${index}`);
+    if (!timerDisplay) {
+        timerDisplay = document.createElement("div");
+        timerDisplay.id = `timer-${index}`;
+        timerDisplay.className = "timer-display";
+        hoursInput.parentNode.appendChild(timerDisplay);
+    }
+
+    // Stop any existing timer for this appliance
+    if (timerIntervals[index]) {
+        clearInterval(timerIntervals[index]);
+    }
+
+    timerIntervals[index] = setInterval(() => {
+        remainingTime--;
+        const hoursLeft = Math.floor(remainingTime / 3600);
+        const minutesLeft = Math.floor((remainingTime % 3600) / 60);
+        const secondsLeft = remainingTime % 60;
+
+        timerDisplay.textContent = `${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`;
+
+        if (remainingTime <= 0) {
+            clearInterval(timerIntervals[index]);
+            timerDisplay.textContent = "Time's up!";
+        }
+    }, 1000);
+}
+
+function stopTimer(index) {
+    if (timerIntervals[index]) {
+        clearInterval(timerIntervals[index]);
+        delete timerIntervals[index];
+        const timerDisplay = document.getElementById(`timer-${index}`);
+        if (timerDisplay) {
+            timerDisplay.textContent = "Timer stopped.";
+        }
+    }
+}
+
+function scheduleTimer(index) {
+    const scheduleTime = prompt("Enter the time to start the timer (HH:MM, 24-hour format):");
+    if (!scheduleTime || !/^(\d{2}):(\d{2})$/.test(scheduleTime)) {
+        alert("Please enter a valid time in HH:MM format.");
+        return;
+    }
+
+    const now = new Date();
+    const [hours, minutes] = scheduleTime.split(":").map(Number);
+    const scheduledTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+
+    if (scheduledTime <= now) {
+        scheduledTime.setDate(scheduledTime.getDate() + 1); // Schedule for the next day if time has passed
+    }
+
+    const delay = scheduledTime - now;
+    setTimeout(() => {
+        startTimer(index);
+        alert(`Timer started for ${selectedAppliances[index].name} at ${scheduleTime}.`);
+    }, delay);
+
+    alert(`Timer scheduled to start at ${scheduledTime.toLocaleTimeString()}.`);
+}
+
+
+            document.addEventListener("DOMContentLoaded", () => {
+                populateSavedListsDropdown();
+            });
+
+
+
+//         function calculateUsage() {
+//     const yakaUnits = parseFloat(document.getElementById("yakaUnits").value);
+//     if (isNaN(yakaUnits) || yakaUnits <= 0) {
+//         alert("Enter valid Yaka units.");
+//         return;
+//     }
+
+//     let totalKwh = 0;
+//     let breakdown = "";
+//     selectedAppliances.forEach((appliance, index) => {
+//         const hours = parseFloat(document.getElementById(`hours-${index}`).value) || 0;
+//         const kwh = (appliance.power / 1000) * hours;
+//         totalKwh += kwh;
+//         breakdown += `<p>${appliance.name}: ${kwh.toFixed(2)} kWh/day (${hours} hours/day).</p>`;
+//     });
+
+//     const totalHours = (yakaUnits / totalKwh) * 24;
+
+//     // Convert total hours into days, hours, minutes, and seconds
+//     const days = Math.floor(totalHours / 24);
+//     const hours = Math.floor(totalHours % 24);
+//     const minutes = Math.floor((totalHours % 1) * 60);
+//     const seconds = Math.floor(((totalHours % 1) * 60 - minutes) * 60);
+
+//     // Store the interaction in localStorage
+//     const interaction = {
+//         yakaUnits,
+//         selectedAppliances: [...selectedAppliances],
+//         totalKwh,
+//         totalHours,
+//         days,
+//         hours,
+//         minutes,
+//         seconds,
+//     };
+//     interactionHistory.push(interaction);
+//     localStorage.setItem("interactionHistory", JSON.stringify(interactionHistory));
+
+//     document.getElementById("result").innerHTML = `
+//         <h3>Your Yaka units will last ${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds.</h3>
+//         <div class="breakdown">
+//             <h4>Breakdown:</h4>
+//             ${breakdown}
+//         </div>`;
+//     document.getElementById("result").style.display = "block";
+//     document.getElementById("adjustmentOptions").style.display = "block";
+// }
+
+// function calculateUsage() {
+//     const yakaUnits = parseFloat(document.getElementById("yakaUnits").value);
+//     if (isNaN(yakaUnits) || yakaUnits <= 0) {
+//         alert("Enter valid Yaka units.");
+//         return;
+//     }
+
+//     let totalKwh = 0;
+//     let breakdown = "";
+//     selectedAppliances.forEach((appliance, index) => {
+//         const hours = parseFloat(document.getElementById(`hours-${index}`).value) || 0;
+//         const units = (appliance.power / 1000) * hours; // Calculate daily units (kWh)
+//         totalKwh += units;
+//         breakdown += `<p>${appliance.name}: ${units.toFixed(2)} units/day (${hours} hours/day).</p>`;
+//     });
+
+//     const totalHours = (yakaUnits / totalKwh) * 24;
+
+//     // Convert total hours into days, hours, minutes, and seconds
+//     const days = Math.floor(totalHours / 24);
+//     const hours = Math.floor(totalHours % 24);
+//     const minutes = Math.floor((totalHours % 1) * 60);
+//     const seconds = Math.floor(((totalHours % 1) * 60 - minutes) * 60);
+
+//     // Store the interaction in localStorage
+//     const interaction = {
+//         yakaUnits,
+//         selectedAppliances: [...selectedAppliances],
+//         totalKwh,
+//         totalHours,
+//         days,
+//         hours,
+//         minutes,
+//         seconds,
+//     };
+//     interactionHistory.push(interaction);
+//     localStorage.setItem("interactionHistory", JSON.stringify(interactionHistory));
+
+//     document.getElementById("result").innerHTML =
+//         `<h3>Your Yaka units will last ${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds.</h3>
+//         <div class="breakdown">
+//             <h4>Breakdown:</h4>
+//             ${breakdown}
+//         </div>`;
+//     document.getElementById("result").style.display = "block";
+//     document.getElementById("adjustmentOptions").style.display = "block";
+// }
+
+function calculateUsage() {
     const yakaUnits = parseFloat(document.getElementById("yakaUnits").value);
     if (isNaN(yakaUnits) || yakaUnits <= 0) {
         alert("Enter valid Yaka units.");
@@ -245,20 +638,17 @@ appliances.forEach((appliance, index) => {
     let breakdown = "";
     selectedAppliances.forEach((appliance, index) => {
         const hours = parseFloat(document.getElementById(`hours-${index}`).value) || 0;
-        const kwh = (appliance.power / 1000) * hours;
-        totalKwh += kwh;
-        breakdown += `<p>${appliance.name}: ${kwh.toFixed(2)} kWh/day (${hours} hours/day).</p>`;
+        const units = (appliance.power / 1000) * hours;
+        totalKwh += units;
+        breakdown += `<p>${appliance.name}: ${units.toFixed(2)} units/day (${hours} hours/day).</p>`;
     });
 
     const totalHours = (yakaUnits / totalKwh) * 24;
-
-    // Convert total hours into days, hours, minutes, and seconds
     const days = Math.floor(totalHours / 24);
     const hours = Math.floor(totalHours % 24);
     const minutes = Math.floor((totalHours % 1) * 60);
     const seconds = Math.floor(((totalHours % 1) * 60 - minutes) * 60);
 
-    // Store the interaction in localStorage
     const interaction = {
         yakaUnits,
         selectedAppliances: [...selectedAppliances],
@@ -272,16 +662,23 @@ appliances.forEach((appliance, index) => {
     interactionHistory.push(interaction);
     localStorage.setItem("interactionHistory", JSON.stringify(interactionHistory));
 
-    document.getElementById("result").innerHTML = `
+    // Display results in an overlay
+    const overlayContent = `
         <h3>Your Yaka units will last ${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds.</h3>
         <div class="breakdown">
             <h4>Breakdown:</h4>
             ${breakdown}
-        </div>`;
-    document.getElementById("result").style.display = "block";
-    document.getElementById("adjustmentOptions").style.display = "block";
+        </div>
+        <button onclick="closeResultOverlay()" class="btn btn-primary mt-3">Close</button>`;
+    document.getElementById("resultOverlayContent").innerHTML = overlayContent;
+    document.getElementById("resultOverlay").style.display = "block";
 }
 
+function closeResultOverlay() {
+    document.getElementById("resultOverlay").style.display = "none";
+    document.getElementById("result").innerHTML = document.getElementById("resultOverlayContent").innerHTML;
+    document.getElementById("result").style.display = "block";
+}
 
         function showAdjustments() {
             document.getElementById("adjustmentsForm").style.display = "block";
@@ -333,79 +730,6 @@ appliances.forEach((appliance, index) => {
     document.getElementById("result").style.display = "block";
 }
 
-
-// function showHistoryOverlay() {
-//     const historyList = document.getElementById("historyList");
-//     historyList.innerHTML = "";
-
-//     // Check if there is any interaction history
-//     if (interactionHistory.length === 0) {
-//         historyList.innerHTML = `<p>No interaction history found.</p>`;
-//         document.getElementById("historyOverlay").style.display = "block";
-//         return;
-//     }
-
-//     // Loop through interaction history and display each item with a trash icon
-//     interactionHistory.forEach((interaction, index) => {
-//         historyList.innerHTML += `
-//             <div class="history-item mb-4 p-4 bg-gray-100 rounded shadow relative flex items-center">
-//                 <button
-//                     class="delete-btn mr-4 bg-blue-500 text-white rounded-full p-2"
-//                     onclick="deleteInteraction(${index})">
-//                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-//                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m2 10H7a2 2 0 01-2-2V7h14v14a2 2 0 01-2 2zM5 7h14m-6-3v3m2 0V4m-6 0v3" />
-//                     </svg>
-//                 </button>
-//                 <div>
-//                     <h4>Interaction #${index + 1}</h4>
-//                     <p><strong>Yaka Units:</strong> ${interaction.yakaUnits}</p>
-//                     <p><strong>Total KWh:</strong> ${interaction.totalKwh.toFixed(2)}</p>
-//                     <p><strong>Time Remaining:</strong> ${interaction.days} days, ${interaction.hours} hours, ${interaction.minutes} minutes, and ${interaction.seconds} seconds.</p>
-//                     <h5 class="mt-2">Appliances Used:</h5>
-//                     <ul>
-//                         ${interaction.selectedAppliances
-//                             .map(appliance => `<li>${appliance.name} (${appliance.power}W)</li>`)
-//                             .join('')}
-//                     </ul>
-//                 </div>
-//             </div>
-//         `;
-//     });
-
-//     document.getElementById("historyOverlay").style.display = "block";
-// }
-// function showHistoryOverlay() {
-//     const historyContent = document.getElementById("historyContent");
-//     historyContent.innerHTML = ""; // Clear any previous content
-
-//     // Retrieve interaction history from localStorage
-//     const history = JSON.parse(localStorage.getItem("interactionHistory")) || [];
-
-//     if (history.length === 0) {
-//         historyContent.innerHTML = "<p>No history available.</p>";
-//     } else {
-//         history.forEach((entry, index) => {
-//             const { yakaUnits, selectedAppliances, totalKwh, days, hours, minutes, seconds } = entry;
-//             const appliances = selectedAppliances
-//                 .map(appliance => `${appliance.name} (${appliance.power}W)`)
-//                 .join(", ");
-
-//             historyContent.innerHTML += `
-//                 <div class="history-entry mb-3">
-//                     <h4>Interaction ${index + 1}</h4>
-//                     <p><strong>Yaka Units:</strong> ${yakaUnits}</p>
-//                     <p><strong>Appliances:</strong> ${appliances}</p>
-//                     <p><strong>Total kWh:</strong> ${totalKwh.toFixed(2)}</p>
-//                     <p><strong>Duration:</strong> ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds</p>
-//                 </div>
-//                 <hr />
-//             `;
-//         });
-//     }
-
-//     // Show the overlay
-//     document.getElementById("historyOverlay").style.display = "block";
-// }
 function showHistoryOverlay() {
     const historyContent = document.getElementById("historyContent");
     historyContent.innerHTML = ""; // Clear previous content
@@ -515,6 +839,12 @@ function deleteHistoryEntry(index) {
                     <a href="{{ route('user.connect') }}" class="d-flex align-items-center text-gray-300 hover:text-blue-400 py-2">
                         <i class="fas fa-link me-2"></i>
                         {{ __('Connected Devices') }}
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('user.yaka') }}" class="d-flex align-items-center text-gray-300 hover:text-blue-400 py-2">
+                        <i class="fas fa-user-edit me-2"></i>
+                        {{ __('Yaka') }}
                     </a>
                 </li>
             </ul>
@@ -759,68 +1089,7 @@ function deleteHistoryEntry(index) {
 
 </x-app-layout>
 
-<div class="ccontainer p-4 border rounded-lg shadow-md bg-white">
-    <!-- Button to Show/Hide Saved Lists -->
-    <button id="toggleListsButton" class="bg-[#00796b] text-white px-4 py-2 rounded-md mb-4">
-        Show Saved Lists
-    </button>
 
-    <!-- Saved Lists Section (Initially Hidden) -->
-    <div id="savedListsSection" style="display: none;">
-        <h2 class="text-lg font-semibold text-[#00796b] mb-4">Saved Lists</h2>
-        <div id="savedListsContent">
-            <!-- Lists will be dynamically added here -->
-        </div>
-    </div>
-</div>
-
-<script>
-    // Toggle Saved Lists Section
-    document.getElementById("toggleListsButton").addEventListener("click", function () {
-        const section = document.getElementById("savedListsSection");
-        section.style.display = section.style.display === "none" ? "block" : "none";
-    });
-
-    // Function to delete a saved list
-    function deleteSavedList(index) {
-        let savedLists = JSON.parse(localStorage.getItem("applianceLists")) || [];
-        savedLists.splice(index, 1);
-        localStorage.setItem("applianceLists", JSON.stringify(savedLists));
-        displaySavedLists(); // Refresh list display
-    }
-
-    // Function to display saved lists
-    function displaySavedLists() {
-        let savedListsElement = document.getElementById("savedListsContent");
-        let savedLists = JSON.parse(localStorage.getItem("applianceLists")) || [];
-
-        if (savedLists.length === 0) {
-            savedListsElement.innerHTML = "<p class='text-gray-500'>No lists saved yet.</p>";
-        } else {
-            savedListsElement.innerHTML = `
-                <div class="flex flex-wrap gap-4">
-                    ${savedLists.map((list, i) => `
-                        <div class="mb-3 p-3 border rounded flex justify-between w-1/3 relative bg-gray-100">
-                            <div>
-                                <h4 class="font-semibold">List ${i + 1}</h4>
-                                <ul class="list-disc pl-4">
-                                    ${list.map(a => `<li>${a.name} (${a.power}W)</li>`).join("")}
-                                </ul>
-                            </div>
-                            <button class="text-red-500 absolute top-0 right-0 text-2xl"
-                                style="background: none; border: none;"
-                                onclick="deleteSavedList(${i})">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </div>
-                    `).join("")}
-                </div>
-            `;
-        }
-    }
-
-    // Load saved lists on page load
-    window.onload = displaySavedLists;
 </script>
 
 

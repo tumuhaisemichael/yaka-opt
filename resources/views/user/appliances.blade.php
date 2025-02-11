@@ -35,6 +35,12 @@
                         {{ __('Connected Devices') }}
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('user.yaka') }}" class="d-flex align-items-center text-gray-300 hover:text-blue-400 py-2">
+                        <i class="fas fa-user-edit me-2"></i>
+                        {{ __('Yaka') }}
+                    </a>
+                </li>
             </ul>
         </nav>
 
@@ -42,6 +48,21 @@
         <div class="flex-grow p-4 bg-[#e8f5e9] dark:bg-[#c8e6c9]" style="overflow-y: auto;">
             <div class="container bg-white rounded shadow-lg p-4">
                 <h1 class="text-2xl font-bold text-[#004d40] text-center">Customize Appliances</h1>
+                <!-- <p id="currentDateTime" class="text-[#757575]"></p> -->
+
+                <!-- <script>
+                    function updateDateTime() {
+                        let now = new Date();
+                        let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                        let formattedDate = now.toLocaleDateString('en-US', options);
+                        let formattedTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+                        document.getElementById("currentDateTime").innerText = `${formattedDate}, ${formattedTime}`;
+                    }
+
+                    updateDateTime();
+                    setInterval(updateDateTime, 1000); // Update every second
+                </script> -->
                 <p class="text-center mb-4">Select the appliances you frequently use and save your preferences for future sessions.</p>
 
                 <!-- Appliance Selection Section -->
@@ -119,6 +140,12 @@
                     <a href="{{ route('user.connect') }}" class="d-flex align-items-center text-gray-300 hover:text-blue-400 py-2">
                         <i class="fas fa-link me-2"></i>
                         {{ __('Connected Devices') }}
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('user.yaka') }}" class="d-flex align-items-center text-gray-300 hover:text-blue-400 py-2">
+                        <i class="fas fa-user-edit me-2"></i>
+                        {{ __('Yaka') }}
                     </a>
                 </li>
             </ul>

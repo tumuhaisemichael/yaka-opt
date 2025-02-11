@@ -48,6 +48,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/cost', [UserController::class, 'index'])->name('user.cost'); // Display cost page
     Route::get('/user/appliances', [UserController::class, 'appliances'])->name('user.appliances'); // Display cost page
     Route::get('/user/connect', [UserController::class, 'connect'])->name('user.connect'); // Display cost page
+    Route::get('/user/yaka', [UserController::class, 'yaka'])->name('user.yaka'); // Display cost page
+
 
 
 });

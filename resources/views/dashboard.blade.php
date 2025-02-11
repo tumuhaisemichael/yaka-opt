@@ -34,6 +34,12 @@
                         Connect Devices
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('user.yaka') }}" class="d-flex align-items-center text-white hover:text-[#80cbc4] py-2">
+                        <i class="fas fa-link me-2"></i>
+                        Yaka Usage
+                    </a>
+                </li>
             </ul>
         </nav>
 
@@ -50,26 +56,35 @@
                 <div class="bg-[#00796b] p-4 rounded shadow">
                     <h3 class="text-white text-sm font-bold mb-2">Cost Predicted</h3>
                     <canvas id="costPredictedChart" style="width: 100%; height: 250px;"></canvas>
+                    <p class="text-sm text-white mb-4">This graph shows the predicted energy cost for the current month, broken down by lighting, heating, and appliances.</p>
+
                 </div>
                 <!-- Change in Cost -->
                 <div class="bg-[#00796b] p-4 rounded shadow">
                     <h3 class="text-white text-sm font-bold mb-2">Change in Cost</h3>
                     <canvas id="changeInCostChart" style="width: 100%; height: 250px;"></canvas>
+                    <p class="text-sm text-white mb-4">This graph shows the change in energy cost over the past four months, helping you identify trends and areas for improvement.</p>
+
                 </div>
                 <!-- Usage Estimate -->
                 <div class="bg-[#00796b] p-4 rounded shadow">
                     <h3 class="text-white text-sm font-bold mb-2">Usage Estimate</h3>
                     <canvas id="usageEstimateChart" style="width: 100%; height: 250px;"></canvas>
+                    <p class="text-sm text-white mb-4">This graph provides an estimate of your energy usage over the past three weeks, helping you understand your consumption patterns.</p>
+
                 </div>
                 <!-- Active Appliances -->
                 <div class="bg-[#00796b] p-4 rounded shadow">
                     <h3 class="text-white text-sm font-bold mb-2">Active Appliances</h3>
                     <canvas id="activeAppliancesChart" style="width: 100%; height: 250px;"></canvas>
+                    <p class="text-sm text-white mb-4">This graph shows the number of active appliances in your home, helping you identify opportunities to reduce energy consumption.</p>
+
                 </div>
                 <!-- Energy Intensity -->
                 <div class="bg-[#00796b] p-4 rounded shadow">
                     <h3 class="text-white text-sm font-bold mb-2">Energy Intensity</h3>
                     <canvas id="energyIntensityChart" style="width: 100%; height: 250px;"></canvas>
+                    <p class="text-sm text-white mb-4">This graph shows the energy intensity of your home, measured in watts per square meter, helping you understand how efficiently you're using energy.</p>
                 </div>
             </div>
         </div>
@@ -94,11 +109,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('user.update') }}" class="d-flex align-items-center text-gray-700 hover:text-blue-600 py-2">
+                    <a href="{{ route('user.update') }}" class="d-flex align-items-center text-white hover:text-[#80cbc4] py-2">
                         <i class="fas fa-user-edit me-2"></i>
-                        {{ __('Yaka-Opt') }}
+                        Yaka-Opt
                     </a>
                 </li>
+                <li>
                 <li>
                     <a href="{{ route('user.cost') }}" class="d-flex align-items-center text-white hover:text-[#80cbc4] py-2">
                         <i class="fas fa-home me-2"></i>Cost
