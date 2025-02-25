@@ -333,33 +333,7 @@ appliances.forEach((appliance, index) => {
             displayApplianceList();
         }
 
-        // function displayApplianceList() {
-        //     const applianceList = document.getElementById("applianceList");
-        //     applianceList.innerHTML = "";
-        //     selectedAppliances.forEach((appliance, index) => {
-        //         applianceList.innerHTML += `
-        //             <div class="appliance-row">
-        //                 <span>${appliance.name} (${appliance.power}W):</span>
-        //                 <input type="number" id="hours-${index}" placeholder="Hours/day" />
-        //             </div>`;
-        //     });
-        // }
 
-// Update the appliance list display to include stop and schedule buttons
-// function displayApplianceList() {
-//     const applianceList = document.getElementById("applianceList");
-//     applianceList.innerHTML = "";
-//     selectedAppliances.forEach((appliance, index) => {
-//         applianceList.innerHTML += `
-//             <div class="appliance-row flex items-center justify-between mb-2">
-//                 <span>${appliance.name} (${appliance.power}W):</span>
-//                 <input type="number" id="hours-${index}" placeholder="Hours/day" class="form-control w-1/4" />
-//                 <button class="btn btn-sm btn-outline-primary" onclick="startTimer(${index})">Start Timer</button>
-//                 <button class="btn btn-sm btn-outline-danger" onclick="stopTimer(${index})">Stop Timer</button>
-//                 <button class="btn btn-sm btn-outline-success" onclick="scheduleTimer(${index})">Schedule</button>
-//             </div>`;
-//     });
-// }
 
 function displayApplianceList() {
     const applianceList = document.getElementById("applianceList");
@@ -377,76 +351,7 @@ function displayApplianceList() {
             </div>`;
     });
 }
-// timer
-// Timer functionality with stop and scheduled start
-// let timerIntervals = {}; // Store intervals for each appliance timer
 
-// function startTimer(index) {
-//     const hoursInput = document.getElementById(`hours-${index}`);
-//     const hours = parseFloat(hoursInput.value);
-//     if (isNaN(hours) || hours <= 0) {
-//         alert("Please enter a valid number of hours.");
-//         return;
-//     }
-
-//     const seconds = hours * 3600;
-//     let remainingTime = seconds;
-
-//     const timerDisplay = document.createElement("div");
-//     timerDisplay.id = `timer-${index}`;
-//     timerDisplay.className = "timer-display";
-//     hoursInput.parentNode.appendChild(timerDisplay);
-
-//     // Stop any existing timer for this appliance
-//     if (timerIntervals[index]) {
-//         clearInterval(timerIntervals[index]);
-//     }
-
-//     timerIntervals[index] = setInterval(() => {
-//         remainingTime--;
-//         const hoursLeft = Math.floor(remainingTime / 3600);
-//         const minutesLeft = Math.floor((remainingTime % 3600) / 60);
-//         const secondsLeft = remainingTime % 60;
-
-//         timerDisplay.textContent = `${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`;
-
-//         if (remainingTime <= 0) {
-//             clearInterval(timerIntervals[index]);
-//             timerDisplay.textContent = "Time's up!";
-//         }
-//     }, 1000);
-// }
-
-// function stopTimer(index) {
-//     if (timerIntervals[index]) {
-//         clearInterval(timerIntervals[index]);
-//         const timerDisplay = document.getElementById(`timer-${index}`);
-//         if (timerDisplay) {
-//             timerDisplay.textContent = "Timer stopped.";
-//         }
-//     }
-// }
-
-// function scheduleTimer(index) {
-//     const scheduleTime = prompt("Enter the time to start the timer (e.g., 14:30 for 2:30 PM):");
-//     if (!scheduleTime) return;
-
-//     const now = new Date();
-//     const [hours, minutes] = scheduleTime.split(":").map(Number);
-//     const scheduledTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
-
-//     if (scheduledTime <= now) {
-//         alert("Please enter a future time.");
-//         return;
-//     }
-
-//     const delay = scheduledTime - now;
-//     setTimeout(() => {
-//         startTimer(index);
-//     }, delay);
-
-//     alert(`Timer scheduled to start at ${scheduleTime}.`);
-// }
 
 let timerIntervals = {}; // Store intervals for each appliance timer
 
@@ -530,102 +435,6 @@ function scheduleTimer(index) {
             });
 
 
-
-//         function calculateUsage() {
-//     const yakaUnits = parseFloat(document.getElementById("yakaUnits").value);
-//     if (isNaN(yakaUnits) || yakaUnits <= 0) {
-//         alert("Enter valid Yaka units.");
-//         return;
-//     }
-
-//     let totalKwh = 0;
-//     let breakdown = "";
-//     selectedAppliances.forEach((appliance, index) => {
-//         const hours = parseFloat(document.getElementById(`hours-${index}`).value) || 0;
-//         const kwh = (appliance.power / 1000) * hours;
-//         totalKwh += kwh;
-//         breakdown += `<p>${appliance.name}: ${kwh.toFixed(2)} kWh/day (${hours} hours/day).</p>`;
-//     });
-
-//     const totalHours = (yakaUnits / totalKwh) * 24;
-
-//     // Convert total hours into days, hours, minutes, and seconds
-//     const days = Math.floor(totalHours / 24);
-//     const hours = Math.floor(totalHours % 24);
-//     const minutes = Math.floor((totalHours % 1) * 60);
-//     const seconds = Math.floor(((totalHours % 1) * 60 - minutes) * 60);
-
-//     // Store the interaction in localStorage
-//     const interaction = {
-//         yakaUnits,
-//         selectedAppliances: [...selectedAppliances],
-//         totalKwh,
-//         totalHours,
-//         days,
-//         hours,
-//         minutes,
-//         seconds,
-//     };
-//     interactionHistory.push(interaction);
-//     localStorage.setItem("interactionHistory", JSON.stringify(interactionHistory));
-
-//     document.getElementById("result").innerHTML = `
-//         <h3>Your Yaka units will last ${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds.</h3>
-//         <div class="breakdown">
-//             <h4>Breakdown:</h4>
-//             ${breakdown}
-//         </div>`;
-//     document.getElementById("result").style.display = "block";
-//     document.getElementById("adjustmentOptions").style.display = "block";
-// }
-
-// function calculateUsage() {
-//     const yakaUnits = parseFloat(document.getElementById("yakaUnits").value);
-//     if (isNaN(yakaUnits) || yakaUnits <= 0) {
-//         alert("Enter valid Yaka units.");
-//         return;
-//     }
-
-//     let totalKwh = 0;
-//     let breakdown = "";
-//     selectedAppliances.forEach((appliance, index) => {
-//         const hours = parseFloat(document.getElementById(`hours-${index}`).value) || 0;
-//         const units = (appliance.power / 1000) * hours; // Calculate daily units (kWh)
-//         totalKwh += units;
-//         breakdown += `<p>${appliance.name}: ${units.toFixed(2)} units/day (${hours} hours/day).</p>`;
-//     });
-
-//     const totalHours = (yakaUnits / totalKwh) * 24;
-
-//     // Convert total hours into days, hours, minutes, and seconds
-//     const days = Math.floor(totalHours / 24);
-//     const hours = Math.floor(totalHours % 24);
-//     const minutes = Math.floor((totalHours % 1) * 60);
-//     const seconds = Math.floor(((totalHours % 1) * 60 - minutes) * 60);
-
-//     // Store the interaction in localStorage
-//     const interaction = {
-//         yakaUnits,
-//         selectedAppliances: [...selectedAppliances],
-//         totalKwh,
-//         totalHours,
-//         days,
-//         hours,
-//         minutes,
-//         seconds,
-//     };
-//     interactionHistory.push(interaction);
-//     localStorage.setItem("interactionHistory", JSON.stringify(interactionHistory));
-
-//     document.getElementById("result").innerHTML =
-//         `<h3>Your Yaka units will last ${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds.</h3>
-//         <div class="breakdown">
-//             <h4>Breakdown:</h4>
-//             ${breakdown}
-//         </div>`;
-//     document.getElementById("result").style.display = "block";
-//     document.getElementById("adjustmentOptions").style.display = "block";
-// }
 
 function calculateUsage() {
     const yakaUnits = parseFloat(document.getElementById("yakaUnits").value);
@@ -800,16 +609,17 @@ function deleteHistoryEntry(index) {
     </script>
 
     <!-- Mobile Layout -->
+    <!-- Mobile Layout -->
     <div class="md:hidden">
         <!-- Mobile Header -->
         <div class="bg-[#004d40] p-4">
-            <button id="menuToggle" class="text-white focus:outline-none">
+            <button id="menuToggleMobile" class="text-white focus:outline-none">
                 <i class="fas fa-bars"></i> Menu
             </button>
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden bg-[#004d40] p-4">
+        <div id="mobileMenuMobile" class="hidden bg-[#004d40] p-4">
             <ul class="list-unstyled">
                 <li>
                     <a href="{{ route('dashboard') }}" class="d-flex align-items-center text-gray-300 hover:text-blue-400 py-2">
@@ -858,31 +668,50 @@ function deleteHistoryEntry(index) {
 
                 <!-- Step 1: Enter Yaka Units -->
                 <h2 class="text-lg font-semibold text-[#00796b]">Enter Yaka Units</h2>
-                <input type="number" id="yakaUnitsMobile" placeholder="Enter Yaka Units" class="form-control mb-4" />
+                <input type="number" id="yakaUnitsInputMobile" placeholder="Enter Yaka Units" class="w-full p-2 border rounded mb-4" />
 
                 <!-- Step 2: Choose Appliances -->
                 <h2 class="text-lg font-semibold text-[#00796b]">Choose Your Appliances</h2>
-                <div class="dropdown mb-4">
-                    <select id="applianceDropdownMobile" class="form-control" onchange="addApplianceMobile()">
-                        <option value="">-- Select an Appliance --</option>
-                    </select>
-                </div>
+                <select id="applianceDropdownMobile" class="w-full p-2 border rounded mb-4" onchange="addApplianceMobile()">
+                    <option value="">-- Select an Appliance --</option>
+                </select>
 
-                <!-- Step 3: Add Custom Appliance -->
+                <!-- Step 3: Load Saved Appliance List -->
+                <h2 class="text-lg font-semibold text-[#00796b]">Load Saved Appliance List</h2>
+                <select id="savedListsDropdownMobile" class="w-full p-2 border rounded mb-4" onchange="loadSavedListMobile()">
+                    <option value="">-- Select a Saved List --</option>
+                </select>
+
+                <!-- Step 4: Add Custom Appliance -->
                 <h2 class="text-lg font-semibold text-[#00796b]">Add Custom Appliance</h2>
-                <div class="custom-appliance mb-4">
-                    <input type="text" id="customApplianceNameMobile" placeholder="Enter Appliance Name" class="form-control mb-2" />
-                    <input type="number" id="customAppliancePowerMobile" placeholder="Enter Power Usage (Watts)" class="form-control mb-2" />
-                    <button class="btn w-100" onclick="addCustomApplianceMobile()">Add Custom Appliance</button>
+                <div class="mb-4">
+                    <input type="text" id="customApplianceNameMobile" placeholder="Enter Appliance Name" class="w-full p-2 border rounded mb-2" />
+                    <input type="number" id="customAppliancePowerMobile" placeholder="Enter Power Usage (Watts)" class="w-full p-2 border rounded mb-2" />
+                    <button onclick="addCustomApplianceMobile()" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Add Custom Appliance</button>
                 </div>
 
-                <!-- Step 4: Set Usage Details -->
+                <!-- Step 5: Set Usage Details -->
                 <h2 class="text-lg font-semibold text-[#00796b]">Set Usage Details</h2>
-                <div id="applianceListMobile" class="appliance-list mb-4"></div>
-                <button class="btn w-100" onclick="calculateUsageMobile()">Calculate</button>
+                <div id="applianceListMobile" class="mb-4"></div>
+                <button onclick="calculateUsageMobile()" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">Calculate</button>
 
                 <!-- Results -->
-                <div id="resultMobile" class="result mt-4" style="display: none;"></div>
+                <div id="resultMobile" class="mt-4 p-4 bg-gray-100 rounded" style="display: none;"></div>
+
+                <!-- Timer Section -->
+                <div id="timerSectionMobile" class="mt-6">
+                    <h2 class="text-lg font-semibold text-[#00796b]">Appliance Timers</h2>
+                    <div id="timerDisplayMobile" class="mb-4"></div>
+                </div>
+
+                <!-- Connected Devices Section -->
+                <div class="mt-6">
+                    <button id="toggleDevicesButtonMobile" class="w-full bg-[#2e7d32] text-white py-2 rounded hover:bg-[#1b5e20]">Show Connected Devices</button>
+                    <div id="connectedDevicesSectionMobile" class="mt-4" style="display: none;">
+                        <h2 class="text-lg font-semibold text-[#00796b]">Connected Devices</h2>
+                        <ul id="connectedDevicesListMobile" class="list-unstyled"></ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -901,8 +730,11 @@ function deleteHistoryEntry(index) {
         ];
 
         const applianceDropdownMobile = document.getElementById("applianceDropdownMobile");
+        const savedListsDropdownMobile = document.getElementById("savedListsDropdownMobile");
         const selectedAppliancesMobile = [];
+        const timerIntervalsMobile = {}; // Store intervals for each appliance timer
 
+        // Populate appliance dropdown
         appliancesMobile.forEach((appliance, index) => {
             const option = document.createElement("option");
             option.value = index;
@@ -910,6 +742,31 @@ function deleteHistoryEntry(index) {
             applianceDropdownMobile.appendChild(option);
         });
 
+        // Populate saved lists dropdown
+        // function populateSavedListsDropdownMobile() {
+        //     const savedLists = JSON.parse(localStorage.getItem("applianceListsMobile")) || [];
+        //     savedListsDropdownMobile.innerHTML = "<option value=''>-- Select a Saved List --</option>";
+        //     savedLists.forEach((list, index) => {
+        //         const option = document.createElement("option");
+        //         option.value = index;
+        //         option.textContent = `List ${index + 1}`;
+        //         savedListsDropdownMobile.appendChild(option);
+        //     });
+        // }
+
+        function populateSavedListsDropdownMobile() {
+        const savedLists = JSON.parse(localStorage.getItem("applianceLists")) || [];
+        const savedListsDropdownMobile = document.getElementById("savedListsDropdownMobile");
+        savedListsDropdownMobile.innerHTML = "<option value=''>-- Select a Saved List --</option>";
+        savedLists.forEach((list, index) => {
+            const option = document.createElement("option");
+            option.value = index;
+            option.textContent = `List ${index + 1}`;
+            savedListsDropdownMobile.appendChild(option);
+        });
+    }
+
+        // Add appliance to list
         function addApplianceMobile() {
             const selectedIndex = applianceDropdownMobile.value;
             if (selectedIndex === "") return;
@@ -919,11 +776,10 @@ function deleteHistoryEntry(index) {
                 selectedAppliancesMobile.push(appliance);
                 displayApplianceListMobile();
             }
-
-            // Reset the dropdown to the default option
-            applianceDropdownMobile.value = "";
+            applianceDropdownMobile.value = ""; // Reset dropdown
         }
 
+        // Add custom appliance
         function addCustomApplianceMobile() {
             const name = document.getElementById("customApplianceNameMobile").value.trim();
             const power = parseFloat(document.getElementById("customAppliancePowerMobile").value);
@@ -935,20 +791,109 @@ function deleteHistoryEntry(index) {
             displayApplianceListMobile();
         }
 
+        // Display appliance list with timers
         function displayApplianceListMobile() {
             const applianceListMobile = document.getElementById("applianceListMobile");
-            applianceListMobile.innerHTML = "";
+            applianceListMobile.innerHTML = ""; // Clear the list before repopulating
+
             selectedAppliancesMobile.forEach((appliance, index) => {
                 applianceListMobile.innerHTML += `
-                    <div class="appliance-row">
-                        <span>${appliance.name} (${appliance.power}W):</span>
-                        <input type="number" id="hoursMobile-${index}" placeholder="Hours/day" />
+                    <div class="appliance-row flex items-center justify-between bg-gray-100 p-3 rounded-lg shadow-md mb-3">
+                        <span class="text-lg font-semibold">${appliance.name} (${appliance.power}W):</span>
+                        <input type="number" id="hoursMobile-${index}" placeholder="Hours/day" class="w-1/4 p-2 border rounded" />
+                        <div class="flex gap-2">
+                            <button class="btn btn-sm bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600" onclick="startTimerMobile(${index})">Start Timer</button>
+                            <button class="btn btn-sm bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600" onclick="stopTimerMobile(${index})">Stop Timer</button>
+                        </div>
                     </div>`;
             });
         }
 
+        // Start timer for an appliance
+        function startTimerMobile(index) {
+            const hoursInput = document.getElementById(`hoursMobile-${index}`);
+            const hours = parseFloat(hoursInput.value);
+            if (isNaN(hours) || hours <= 0) {
+                alert("Please enter a valid number of hours.");
+                return;
+            }
+
+            const seconds = hours * 3600;
+            let remainingTime = seconds;
+
+            const timerDisplay = document.createElement("div");
+            timerDisplay.id = `timerMobile-${index}`;
+            timerDisplay.className = "timer-display";
+            hoursInput.parentNode.appendChild(timerDisplay);
+
+            // Stop any existing timer for this appliance
+            if (timerIntervalsMobile[index]) {
+                clearInterval(timerIntervalsMobile[index]);
+            }
+
+            timerIntervalsMobile[index] = setInterval(() => {
+                remainingTime--;
+                const hoursLeft = Math.floor(remainingTime / 3600);
+                const minutesLeft = Math.floor((remainingTime % 3600) / 60);
+                const secondsLeft = remainingTime % 60;
+
+                timerDisplay.textContent = `${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`;
+
+                if (remainingTime <= 0) {
+                    clearInterval(timerIntervalsMobile[index]);
+                    timerDisplay.textContent = "Time's up!";
+                }
+            }, 1000);
+        }
+
+        // Stop timer for an appliance
+        function stopTimerMobile(index) {
+            if (timerIntervalsMobile[index]) {
+                clearInterval(timerIntervalsMobile[index]);
+                const timerDisplay = document.getElementById(`timerMobile-${index}`);
+                if (timerDisplay) {
+                    timerDisplay.textContent = "Timer stopped.";
+                }
+            }
+        }
+
+        // Load saved list
+        // function loadSavedListMobile() {
+        //     const selectedIndex = savedListsDropdownMobile.value;
+        //     if (selectedIndex === "") return;
+
+        //     const savedLists = JSON.parse(localStorage.getItem("applianceListsMobile")) || [];
+        //     const selectedList = savedLists[selectedIndex];
+
+        //     // Clear the current selected appliances
+        //     selectedAppliancesMobile.length = 0;
+
+        //     // Add the appliances from the saved list
+        //     selectedList.forEach(appliance => {
+        //         selectedAppliancesMobile.push(appliance);
+        //     });
+
+        //     // Display the selected appliances
+        //     displayApplianceListMobile();
+        // }
+
+        function loadSavedListMobile() {
+        const selectedIndex = document.getElementById("savedListsDropdownMobile").value;
+        if (selectedIndex === "") return;
+
+        const savedLists = JSON.parse(localStorage.getItem("applianceLists")) || [];
+        const selectedList = savedLists[selectedIndex];
+
+        selectedAppliancesMobile.length = 0;
+        selectedList.forEach(appliance => {
+            selectedAppliancesMobile.push(appliance);
+        });
+        displayApplianceListMobile();
+    }
+
+        // Calculate usage
         function calculateUsageMobile() {
-            const yakaUnits = parseFloat(document.getElementById("yakaUnitsMobile").value);
+            const yakaUnits = parseFloat(document.getElementById("yakaUnitsInputMobile").value);
             if (isNaN(yakaUnits) || yakaUnits <= 0) {
                 alert("Enter valid Yaka units.");
                 return;
@@ -964,7 +909,6 @@ function deleteHistoryEntry(index) {
             });
 
             const totalHours = (yakaUnits / totalKwh) * 24;
-
             const days = Math.floor(totalHours / 24);
             const hours = Math.floor(totalHours % 24);
             const minutes = Math.floor((totalHours % 1) * 60);
@@ -979,57 +923,35 @@ function deleteHistoryEntry(index) {
             document.getElementById("resultMobile").style.display = "block";
         }
 
-        // Mobile Menu Toggle
-        document.getElementById("menuToggle").addEventListener("click", () => {
-            const mobileMenu = document.getElementById("mobileMenu");
+        // Toggle mobile menu
+        document.getElementById("menuToggleMobile").addEventListener("click", () => {
+            const mobileMenu = document.getElementById("mobileMenuMobile");
             mobileMenu.classList.toggle("hidden");
         });
+
+        // Toggle connected devices
+        document.getElementById("toggleDevicesButtonMobile").addEventListener("click", () => {
+            const devicesSection = document.getElementById("connectedDevicesSectionMobile");
+            devicesSection.style.display = devicesSection.style.display === "none" ? "block" : "none";
+            loadConnectedDevicesMobile();
+        });
+
+        // Load connected devices
+        function loadConnectedDevicesMobile() {
+            const connectedDevices = JSON.parse(localStorage.getItem("connectedDevicesMobile")) || [];
+            const devicesList = document.getElementById("connectedDevicesListMobile");
+            devicesList.innerHTML = connectedDevices.map(device => `
+                <li class="bg-gray-100 p-3 rounded-lg shadow-md mb-3">
+                    <p class="font-semibold">${device.name}</p>
+                    <p class="text-gray-600">${device.type}</p>
+                </li>
+            `).join("");
+        }
+
+        // Initialize saved lists dropdown
+        populateSavedListsDropdownMobile();
     </script>
 
-
-<script>
-    // Function to load connected devices from localStorage
-    function loadConnectedDevices() {
-        const connectedDevices = JSON.parse(localStorage.getItem("connected_devices") || "[]");
-        const devicesList = document.getElementById("connectedDevicesList");
-
-        // Clear the list before populating
-        devicesList.innerHTML = "";
-
-        if (connectedDevices.length > 0) {
-            connectedDevices.forEach((device) => {
-                const deviceElement = document.createElement("li");
-                deviceElement.innerHTML = `
-                    <div>
-                        <p class="device-name">${device.name}</p>
-                        <p class="device-type">${device.type}</p>
-                    </div>
-                `;
-                devicesList.appendChild(deviceElement);
-            });
-        } else {
-            devicesList.innerHTML = `<li>No devices connected.</li>`;
-        }
-    }
-
-    // Function to toggle the visibility of the connected devices list
-    function toggleConnectedDevices() {
-        const devicesSection = document.getElementById("connectedDevicesSection");
-        const toggleButton = document.getElementById("toggleDevicesButton");
-
-        if (devicesSection.style.display === "none") {
-            devicesSection.style.display = "block";
-            toggleButton.textContent = "Hide Connected Devices";
-            loadConnectedDevices(); // Load devices when the section is shown
-        } else {
-            devicesSection.style.display = "none";
-            toggleButton.textContent = "Show Connected Devices";
-        }
-    }
-
-    // Add event listener to the toggle button
-    document.getElementById("toggleDevicesButton").addEventListener("click", toggleConnectedDevices);
-</script>
 
 <style>
     /* body {
@@ -1091,5 +1013,3 @@ function deleteHistoryEntry(index) {
 
 
 </script>
-
-
