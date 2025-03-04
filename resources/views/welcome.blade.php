@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
 
     <!--Page Title-->
-    <title>Yaka-Opt</title>
+    <title>OP Energy</title>
 
     <!--Meta Keywords and Description-->
     <meta name="keywords" content="">
@@ -59,11 +59,11 @@
                     <div id="logo">
 
                         <!--Logo that is shown on the banner-->
-                        <!-- <img src="images/logo.png" id="banner-logo" alt="Landing Page"/> -->
+                        <img src="images/logoreal1.png" id="banner-logo" alt="Landing Page"/>
                         <!--End of Banner Logo-->
 
                         <!--The Logo that is shown on the sticky Navigation Bar-->
-                        <!-- <img src="images/logo-2.png" id="navigation-logo" alt="Landing Page"/> -->
+                        <img src="images/logoreal1.png" id="navigation-logo" alt="Landing Page"/>
                         <!--End of Navigation Logo-->
 
                     </div>
@@ -160,7 +160,11 @@
 <div id="banner-content" class="row clearfix">
     <div class="col-38">
         <div class="section-heading">
-            <h1>AI-DRIVEN ENERGY OPTIMIZATION</h1>
+        <img src="images/logoreal1.png" id="banner-logo" alt="Landing Page"/>
+
+        <!-- <img src="images/logoreal1.png" id="banner-logo" alt="Landing Page" style="width: 50%; height: auto;" /> -->
+
+            <h1>OP ENERGY</h1>
             <h2>Your solution for sustainable, cost-effective, and reliable electricity management in Uganda.</h2>
         </div>
         <!--Call to Action-->

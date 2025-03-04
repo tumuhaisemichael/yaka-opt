@@ -48,21 +48,6 @@
         <div class="flex-grow p-4 bg-[#e8f5e9] dark:bg-[#c8e6c9]" style="overflow-y: auto;">
             <div class="container bg-white rounded shadow-lg p-4">
                 <h1 class="text-2xl font-bold text-[#004d40] text-center">Customize Appliances</h1>
-                <!-- <p id="currentDateTime" class="text-[#757575]"></p> -->
-
-                <!-- <script>
-                    function updateDateTime() {
-                        let now = new Date();
-                        let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                        let formattedDate = now.toLocaleDateString('en-US', options);
-                        let formattedTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-
-                        document.getElementById("currentDateTime").innerText = `${formattedDate}, ${formattedTime}`;
-                    }
-
-                    updateDateTime();
-                    setInterval(updateDateTime, 1000); // Update every second
-                </script> -->
                 <p class="text-center mb-4">Select the appliances you frequently use and save your preferences for future sessions.</p>
 
                 <!-- Appliance Selection Section -->
@@ -102,15 +87,15 @@
 
     <!-- Mobile Layout -->
     <div class="md:hidden">
-        <!-- Mobile Header with Menu Button -->
+        <!-- Mobile Header -->
         <div class="bg-[#004d40] p-4">
-            <button id="menuToggle" class="text-white focus:outline-none">
+            <button id="menuToggleMobile" class="text-white focus:outline-none">
                 <i class="fas fa-bars"></i> Menu
             </button>
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden bg-[#004d40] p-4">
+        <div id="mobileMenuMobile" class="hidden bg-[#004d40] p-4">
             <ul class="list-unstyled">
                 <li>
                     <a href="{{ route('dashboard') }}" class="d-flex align-items-center text-gray-300 hover:text-blue-400 py-2">
@@ -152,7 +137,7 @@
         </div>
 
         <!-- Main Content -->
-        <div class="p-4 bg-[#e8f5e9] dark:bg-[#c8e6c9]">
+        <div class="p-4 bg-[#e8f5e9] dark:bg-[#c8e6c9]" style="overflow-y: auto;">
             <div class="container bg-white rounded shadow-lg p-4">
                 <h1 class="text-2xl font-bold text-[#004d40] text-center">Customize Appliances</h1>
                 <p class="text-center mb-4">Select the appliances you frequently use and save your preferences for future sessions.</p>
@@ -192,7 +177,7 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- JavaScript -->
     <script>
         const appliances = [
             { name: "Fridge", power: 150 },
@@ -292,20 +277,8 @@
             displaySelectedAppliances(); // Sync with desktop
         }
 
-        // Toggle mobile menu
-        document.getElementById("menuToggle").addEventListener("click", () => {
-            const mobileMenu = document.getElementById("mobileMenu");
-            mobileMenu.classList.toggle("hidden");
-        });
-
-        // Initial render
-        displayAvailableAppliances();
-        displaySelectedAppliances();
-        displayAvailableAppliancesMobile();
-        displaySelectedAppliancesMobile();
-
-// Add custom appliance
-function addCustomAppliance() {
+        // Add custom appliance (Desktop)
+        function addCustomAppliance() {
             const name = document.getElementById("customApplianceName").value.trim();
             const power = parseFloat(document.getElementById("customAppliancePower").value);
             if (!name || isNaN(power) || power <= 0) {
@@ -321,7 +294,7 @@ function addCustomAppliance() {
             toggleCustomApplianceForm(); // Collapse the form back to button
         }
 
-        // Toggle custom appliance form visibility
+        // Toggle custom appliance form visibility (Desktop)
         function toggleCustomApplianceForm() {
             const form = document.getElementById("customApplianceForm");
             const button = document.getElementById("customApplianceButton");
@@ -334,7 +307,37 @@ function addCustomAppliance() {
             }
         }
 
-        // Save preferences
+        // Add custom appliance (Mobile)
+        function addCustomApplianceMobile() {
+            const name = document.getElementById("customApplianceNameMobile").value.trim();
+            const power = parseFloat(document.getElementById("customAppliancePowerMobile").value);
+            if (!name || isNaN(power) || power <= 0) {
+                alert("Please enter a valid appliance name and power usage.");
+                return;
+            }
+
+            const customAppliance = { name, power };
+            selectedAppliances.push(customAppliance);
+            displaySelectedAppliancesMobile();
+            alert(`Custom appliance "${name}" added to the selected list!`);
+
+            toggleCustomApplianceFormMobile(); // Collapse the form back to button
+        }
+
+        // Toggle custom appliance form visibility (Mobile)
+        function toggleCustomApplianceFormMobile() {
+            const form = document.getElementById("customApplianceFormMobile");
+            const button = document.getElementById("customApplianceButtonMobile");
+            if (form.classList.contains("hidden")) {
+                form.classList.remove("hidden");
+                button.classList.add("hidden");
+            } else {
+                form.classList.add("hidden");
+                button.classList.remove("hidden");
+            }
+        }
+
+        // Save preferences (Desktop)
         function savePreferences() {
             if (selectedAppliances.length === 0) {
                 alert("Please select at least one appliance.");
@@ -347,14 +350,34 @@ function addCustomAppliance() {
             displaySavedLists();
         }
 
-        // Delete saved list
+        // Save preferences (Mobile)
+        function savePreferencesMobile() {
+            if (selectedAppliances.length === 0) {
+                alert("Please select at least one appliance.");
+                return;
+            }
+
+            savedLists.push([...selectedAppliances]);
+            localStorage.setItem("applianceLists", JSON.stringify(savedLists));
+            alert("Preferences saved as a new list!");
+            displaySavedListsMobile();
+        }
+
+        // Delete saved list (Desktop)
         function deleteSavedList(index) {
             savedLists.splice(index, 1);
             localStorage.setItem("applianceLists", JSON.stringify(savedLists));
             displaySavedLists(); // Update the display
         }
 
-        // Display saved lists in 3 columns with delete icon
+        // Delete saved list (Mobile)
+        function deleteSavedListMobile(index) {
+            savedLists.splice(index, 1);
+            localStorage.setItem("applianceLists", JSON.stringify(savedLists));
+            displaySavedListsMobile(); // Update the display
+        }
+
+        // Display saved lists (Desktop)
         function displaySavedLists() {
             if (savedLists.length === 0) {
                 savedListsElement.innerHTML = "<p>No lists saved yet.</p>";
@@ -379,13 +402,55 @@ function addCustomAppliance() {
             }
         }
 
-        // View saved lists
+        // Display saved lists (Mobile)
+        function displaySavedListsMobile() {
+            if (savedLists.length === 0) {
+                savedListsElementMobile.innerHTML = "<p>No lists saved yet.</p>";
+            } else {
+                savedListsElementMobile.innerHTML = `
+                    <div class="flex flex-col gap-4">
+                        ${savedLists.map((list, i) => `
+                            <div class="mb-3 p-3 border rounded flex justify-between relative">
+                                <div>
+                                    <h4>List ${i + 1}</h4>
+                                    <ul>
+                                        ${list.map(a => `<li>${a.name} (${a.power}W)</li>`).join("")}
+                                    </ul>
+                                </div>
+                                <button class="btn text-red-500 absolute top-0 right-0 text-3xl" style="background: none; border: none;" onclick="deleteSavedListMobile(${i})">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        `).join("")}
+                    </div>
+                `;
+            }
+        }
+
+        // View saved lists (Desktop)
         function viewSavedLists() {
             const isHidden = savedListsElement.style.display === "none" || savedListsElement.style.display === "";
             savedListsElement.style.display = isHidden ? "block" : "none";
         }
 
+        // View saved lists (Mobile)
+        function viewSavedListsMobile() {
+            const isHidden = savedListsElementMobile.style.display === "none" || savedListsElementMobile.style.display === "";
+            savedListsElementMobile.style.display = isHidden ? "block" : "none";
+        }
+
+        // Toggle mobile menu
+        document.getElementById("menuToggleMobile").addEventListener("click", () => {
+            const mobileMenu = document.getElementById("mobileMenuMobile");
+            mobileMenu.classList.toggle("hidden");
+        });
+
         // Initial render
+        displayAvailableAppliances();
+        displaySelectedAppliances();
+        displayAvailableAppliancesMobile();
+        displaySelectedAppliancesMobile();
         displaySavedLists();
+        displaySavedListsMobile();
     </script>
 </x-app-layout>
